@@ -5,8 +5,12 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +31,8 @@ public class SousCategories implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id = System.nanoTime();
 
+    @OneToMany(mappedBy = "sousCategorieProduit")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @NotBlank(message = "Description obligatoire")
     @Column(name = "description")
     private String description;

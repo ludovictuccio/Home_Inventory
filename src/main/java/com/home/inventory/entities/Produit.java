@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -28,11 +30,17 @@ public class Produit implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id = System.nanoTime();
 
-    private Categories categorie;
+    @ManyToOne
+    @JoinColumn(name = "categories_id")
+    private Categories categorieProduit;
 
-    private SousCategories sousCategorie;
+    @ManyToOne
+    @JoinColumn(name = "sous_categories_id")
+    private SousCategories sousCategorieProduit;
 
-    private Fournisseur fournisseur;
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id")
+    private Fournisseur fournisseurProduit;
 
     @NotBlank(message = "Description obligatoire")
     @Column(name = "description")
