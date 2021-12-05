@@ -8,6 +8,8 @@ import com.home.inventory.entities.Categories;
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, Long> {
 
-    Categories findCategoriesById(Long CategoriesId);
+    Categories findCategoriesById(Long categoriesId);
+
+    Categories findCategoriesByDescription(String description);
 
 }

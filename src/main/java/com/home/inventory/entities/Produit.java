@@ -34,18 +34,12 @@ public class Produit implements Serializable {
     @Column(name = "id")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "categories_id")
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
     private Categories categorieProduit;
 
-//    @ManyToOne
-//    @JoinColumn(name = "sous_categories_id")
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
     private SousCategories sousCategorieProduit;
 
-//    @ManyToOne
-//    @JoinColumn(name = "fournisseur_id")
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
     private Fournisseur fournisseurProduit;
 
@@ -77,19 +71,6 @@ public class Produit implements Serializable {
     @Column(name = "document_photo")
     private String documentEtPhoto;
 
-    /**
-     * @param categorieProduit
-     * @param sousCategorieProduit
-     * @param fournisseurProduit
-     * @param description
-     * @param dateAchat
-     * @param lieuAchat
-     * @param noFacture
-     * @param quantite
-     * @param pourcentageDeRemise
-     * @param prixAchatUnitaireTTC
-     * @param commentaire
-     */
     public Produit(Categories categorieProd, SousCategories sousCategorieProd,
             Fournisseur fournisseurProd,
             @NotBlank(message = "Description obligatoire") String descriptionProd,

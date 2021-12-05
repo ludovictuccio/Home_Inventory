@@ -79,4 +79,22 @@ public class CategoriesRepositoryTest {
         assertThat(categoriesRepository.findCategoriesById(3L)).isNull();
     }
 
+    @Test
+    @Tag("findCategoriesByDescription")
+    @DisplayName("findCategoriesByDescription - OK")
+    public void givenTwoCategoriesSavedInDb_whenFindCategoriesByDescription_thenReturnCorrectValues() {
+        // GIVEN
+        // WHEN
+        categoriesRepository.save(categorieOne);
+        categoriesRepository.save(categorieTwo);
+
+        // THEN
+        assertThat(categoriesRepository.findCategoriesByDescription("Maison"))
+                .isNotNull();
+        assertThat(categoriesRepository.findCategoriesByDescription("Jardin"))
+                .isNotNull();
+        assertThat(categoriesRepository.findCategoriesByDescription("Other"))
+                .isNull();
+    }
+
 }
