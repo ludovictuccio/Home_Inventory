@@ -20,7 +20,7 @@ public class CategoriesService implements ICategoriesService {
 
     public Categories addCategory(final Categories category) {
 
-        if ((ConstraintsValidator.checkExistingCategory(category) == null)
+        if ((ConstraintsValidator.checkValidCategory(category) == null)
                 || (categoriesRepository.findCategoriesByDescription(
                         category.getDescription()) != null)) {
             return null;
@@ -28,6 +28,18 @@ public class CategoriesService implements ICategoriesService {
         categoriesRepository.save(category);
         LOGGER.info("Succes new user acccount creation");
         return category;
+    }
+
+    public Categories getCategoryByDescription(final String description) {
+        if (categoriesRepository
+                .findCategoriesByDescription(description) == null) {
+            return null;
+        }
+        return categoriesRepository.findCategoriesByDescription(description);
+    }
+
+    public Categories getCategoryById(final Categories category) {
+        return categoriesRepository.findById(category.getId()).orElse(null);
     }
 
 }

@@ -74,4 +74,37 @@ public class CategoriesServiceTest {
         assertThat(categoriesRepository.findAll().size()).isEqualTo(0);
     }
 
+    @Test
+    @Tag("GET")
+    @DisplayName("Get by description - OK - MAJUSCULES")
+    public void givenCategory_whenGetByDescriptionWithMajuscules_thenReturnOk() {
+        // GIVEN
+        categoriesRepository.save(new Categories("Maison"));
+
+        // WHEN
+        Categories result = categorieService.getCategoryByDescription("mAISON");
+
+        // THEN
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getDescription()).isEqualTo("Maison");
+    }
+
+    @Test
+    @Tag("GET")
+    @DisplayName("Get by ID - OK ")
+    public void givenCategory_whenGetById_thenReturnOk() {
+        // GIVEN
+        categoriesRepository.save(new Categories("Maison"));
+
+        // WHEN
+        Categories result = categorieService
+                .getCategoryById(categoriesRepository.findAll().get(0));
+
+        // THEN
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getDescription()).isEqualTo("Maison");
+    }
+
 }

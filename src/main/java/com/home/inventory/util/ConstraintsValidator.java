@@ -17,7 +17,7 @@ public class ConstraintsValidator {
     private static final Logger LOGGER = LogManager
             .getLogger("ConstraintsValidator");
 
-    public static Categories checkExistingCategory(final Categories category) {
+    public static Categories checkValidCategory(final Categories category) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
 
