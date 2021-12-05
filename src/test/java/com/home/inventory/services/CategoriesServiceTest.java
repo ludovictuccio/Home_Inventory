@@ -26,6 +26,7 @@ public class CategoriesServiceTest {
     @BeforeEach
     public void setUpPerTest() {
         categoriesRepository.deleteAllInBatch();
+        categoriesRepository.findAll().clear();
     }
 
     @Test
@@ -40,7 +41,7 @@ public class CategoriesServiceTest {
 
         // THEN
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getId()).isNotNull();
         assertThat(result.getDescription()).isEqualTo("Maison");
     }
 
@@ -86,7 +87,7 @@ public class CategoriesServiceTest {
 
         // THEN
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getId()).isNotNull();
         assertThat(result.getDescription()).isEqualTo("Maison");
     }
 
@@ -103,8 +104,50 @@ public class CategoriesServiceTest {
 
         // THEN
         assertThat(result).isNotNull();
-        assertThat(result.getId()).isEqualTo(1L);
+        assertThat(result.getId()).isNotNull();
         assertThat(result.getDescription()).isEqualTo("Maison");
+    }
+
+    @Test
+    @Tag("PUT")
+    @DisplayName("Update by description - OK")
+    public void givenCategory_whenUpdateByDescription_thenReturnOk() {
+        // GIVEN
+        categoriesRepository.save(new Categories("Maison"));
+
+        Categories categoryToUpdate = new Categories("Maisons");
+
+        // WHEN
+        boolean isUpdated = categorieService
+                .updateCategoriesByDescription(categoryToUpdate, "Maison");
+
+        // THEN
+        assertThat(isUpdated).isTrue();
+        assertThat(categoriesRepository.findAll().size()).isEqualTo(1);
+        assertThat(categoriesRepository.findAll().get(0).getDescription())
+                .isEqualTo("Maisons");
+    }
+
+    @Test
+    @Tag("PUT")
+    @DisplayName("Update by ID - OK")
+    public void givenCategory_whenUpdateById_thenReturnOk() {
+        // GIVEN
+        categoriesRepository.save(new Categories("Maison"));
+
+        Categories categoryToUpdate = new Categories("Maisons");
+
+        Long categoryId = categoriesRepository.findAll().get(0).getId();
+
+        // WHEN
+        boolean isUpdated = categorieService
+                .updateCategoryById(categoryToUpdate, categoryId);
+
+        // THEN
+        assertThat(isUpdated).isTrue();
+        assertThat(categoriesRepository.findAll().size()).isEqualTo(1);
+        assertThat(categoriesRepository.findAll().get(0).getDescription())
+                .isEqualTo("Maisons");
     }
 
 }

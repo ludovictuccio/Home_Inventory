@@ -30,6 +30,9 @@ public class CategoriesService implements ICategoriesService {
         return category;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Categories getCategoryByDescription(final String description) {
         if (categoriesRepository
                 .findCategoriesByDescription(description) == null) {
@@ -38,8 +41,51 @@ public class CategoriesService implements ICategoriesService {
         return categoriesRepository.findCategoriesByDescription(description);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Categories getCategoryById(final Categories category) {
         return categoriesRepository.findById(category.getId()).orElse(null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean updateCategoriesByDescription(final Categories category,
+            final String description) {
+        boolean isUpdated = false;
+
+        Categories existingCategory = categoriesRepository
+                .findCategoriesByDescription(description);
+
+        if (existingCategory == null) {
+            LOGGER.error("Unknow category: {}", description);
+            return isUpdated;
+        }
+        existingCategory.setDescription(category.getDescription());
+        categoriesRepository.save(existingCategory);
+        isUpdated = true;
+        return isUpdated;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean updateCategoryById(final Categories category,
+            final Long id) {
+        boolean isUpdated = false;
+
+        Categories existingCategory = categoriesRepository.findById(id)
+                .orElse(null);
+
+        if (existingCategory == null) {
+            LOGGER.error("Unknow category for id: {}", id);
+            return isUpdated;
+        }
+        existingCategory.setDescription(category.getDescription());
+        categoriesRepository.save(existingCategory);
+        isUpdated = true;
+        return isUpdated;
     }
 
 }
