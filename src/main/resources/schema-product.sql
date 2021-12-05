@@ -1,5 +1,4 @@
 CREATE DATABASE home_inventory_db CHARACTER SET utf8mb4;
-
 USE home_inventory_db;
 
 CREATE TABLE fournisseur (
@@ -7,7 +6,6 @@ CREATE TABLE fournisseur (
                 description VARCHAR (250) NOT NULL,
                 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
-
 
 CREATE TABLE sous_categories (
                 id INT AUTO_INCREMENT NOT NULL,

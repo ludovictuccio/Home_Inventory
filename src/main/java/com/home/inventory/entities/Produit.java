@@ -1,13 +1,16 @@
 package com.home.inventory.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -24,22 +27,26 @@ import lombok.Setter;
 @Table(name = "produit")
 public class Produit implements Serializable {
 
-    private static final long serialVersionUID = -5987711516877850452L;
+    private static final long serialVersionUID = 2024556901701412133L;
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id = System.nanoTime();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "categories_id")
+//    @ManyToOne
+//    @JoinColumn(name = "categories_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
     private Categories categorieProduit;
 
-    @ManyToOne
-    @JoinColumn(name = "sous_categories_id")
+//    @ManyToOne
+//    @JoinColumn(name = "sous_categories_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
     private SousCategories sousCategorieProduit;
 
-    @ManyToOne
-    @JoinColumn(name = "fournisseur_id")
+//    @ManyToOne
+//    @JoinColumn(name = "fournisseur_id")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
     private Fournisseur fournisseurProduit;
 
     @NotBlank(message = "Description obligatoire")
@@ -47,7 +54,7 @@ public class Produit implements Serializable {
     private String description;
 
     @Column(name = "date_achat")
-    private LocalDateTime dateAchat;
+    private LocalDate dateAchat;
 
     @Column(name = "lieu_achat")
     private String lieuAchat;
@@ -69,4 +76,38 @@ public class Produit implements Serializable {
 
     @Column(name = "document_photo")
     private String documentEtPhoto;
+
+    /**
+     * @param categorieProduit
+     * @param sousCategorieProduit
+     * @param fournisseurProduit
+     * @param description
+     * @param dateAchat
+     * @param lieuAchat
+     * @param noFacture
+     * @param quantite
+     * @param pourcentageDeRemise
+     * @param prixAchatUnitaireTTC
+     * @param commentaire
+     */
+    public Produit(Categories categorieProd, SousCategories sousCategorieProd,
+            Fournisseur fournisseurProd,
+            @NotBlank(message = "Description obligatoire") String descriptionProd,
+            LocalDate dateAchatProd, String lieuAchatProd, String noFactureProd,
+            double qte, double pourcentageRemise,
+            double prixAchatUnitaireTTCProd, String comm) {
+        super();
+        this.categorieProduit = categorieProd;
+        this.sousCategorieProduit = sousCategorieProd;
+        this.fournisseurProduit = fournisseurProd;
+        this.description = descriptionProd;
+        this.dateAchat = dateAchatProd;
+        this.lieuAchat = lieuAchatProd;
+        this.noFacture = noFactureProd;
+        this.quantite = qte;
+        this.pourcentageDeRemise = pourcentageRemise;
+        this.prixAchatUnitaireTTC = prixAchatUnitaireTTCProd;
+        this.commentaire = comm;
+    }
+
 }
