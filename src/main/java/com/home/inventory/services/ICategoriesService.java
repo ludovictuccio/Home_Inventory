@@ -45,4 +45,12 @@ public interface ICategoriesService {
      * @return boolean
      */
     boolean updateCategoryById(Categories category, Long id);
+
+    /**
+     * Method used to delete category by ID.
+     * 
+     * @param categoryId
+     * @return boolean
+     */
+    boolean deleteCategoryById(final Long categoryId);
 }

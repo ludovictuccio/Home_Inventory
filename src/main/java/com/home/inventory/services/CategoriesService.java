@@ -88,4 +88,22 @@ public class CategoriesService implements ICategoriesService {
         return isUpdated;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean deleteCategoryById(final Long categoryId) {
+        boolean isDeleted = false;
+
+        Categories existingCategory = categoriesRepository.findById(categoryId)
+                .orElse(null);
+
+        if (existingCategory == null) {
+            LOGGER.error("Unknow category for id: {}", categoryId);
+            return isDeleted;
+        }
+        categoriesRepository.delete(existingCategory);
+        isDeleted = true;
+        return isDeleted;
+    }
+
 }

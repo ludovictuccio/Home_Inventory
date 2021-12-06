@@ -150,4 +150,38 @@ public class CategoriesServiceTest {
                 .isEqualTo("Maisons");
     }
 
+    @Test
+    @Tag("DELETE")
+    @DisplayName("Delete by ID - OK")
+    public void givenCategory_whenDeleteWithHisId_thenReturnTrue() {
+        // GIVEN
+        categoriesRepository.save(new Categories("Maison"));
+        assertThat(categoriesRepository.findAll().size()).isEqualTo(1);
+
+        Long categoryId = categoriesRepository.findAll().get(0).getId();
+
+        // WHEN
+        boolean isDeleted = categorieService.deleteCategoryById(categoryId);
+
+        // THEN
+        assertThat(isDeleted).isTrue();
+        assertThat(categoriesRepository.findAll().size()).isEqualTo(0);
+    }
+
+    @Test
+    @Tag("DELETE")
+    @DisplayName("Delete by ID - Error - Unkow id")
+    public void givenCategory_whenDeleteWithUnknowId_thenReturnFalse() {
+        // GIVEN
+        categoriesRepository.save(new Categories("Maison"));
+        assertThat(categoriesRepository.findAll().size()).isEqualTo(1);
+
+        // WHEN
+        boolean isDeleted = categorieService.deleteCategoryById(9999L);
+
+        // THEN
+        assertThat(isDeleted).isFalse();
+        assertThat(categoriesRepository.findAll().size()).isEqualTo(1);
+    }
+
 }
