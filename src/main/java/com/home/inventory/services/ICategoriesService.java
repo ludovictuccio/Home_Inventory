@@ -26,7 +26,7 @@ public interface ICategoriesService {
      * @param category
      * @return Categories
      */
-    Categories getCategoryById(Categories category);
+    Categories getCategoryById(Long id);
 
     /**
      * Method used to update category by description.

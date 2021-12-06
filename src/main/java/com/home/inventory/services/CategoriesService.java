@@ -44,8 +44,8 @@ public class CategoriesService implements ICategoriesService {
     /**
      * {@inheritDoc}
      */
-    public Categories getCategoryById(final Categories category) {
-        return categoriesRepository.findById(category.getId()).orElse(null);
+    public Categories getCategoryById(final Long id) {
+        return categoriesRepository.findById(id).orElse(null);
     }
 
     /**

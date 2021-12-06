@@ -38,7 +38,6 @@ CREATE TABLE produit (
                 PRIMARY KEY (id, categories_id, sous_categories_id, fournisseur_id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
-
 ALTER TABLE produit ADD CONSTRAINT fournisseur_produit_fk
 FOREIGN KEY (fournisseur_id)
 REFERENCES fournisseur (id)
@@ -56,3 +55,16 @@ FOREIGN KEY (categories_id)
 REFERENCES categories (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+CREATE TABLE users (
+				id INTEGER NOT NULL,
+				username VARCHAR(250),
+				password VARCHAR(250),
+				fullname VARCHAR(250),
+				role VARCHAR(250),
+				PRIMARY KEY (id)
+) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO users(id, fullname, username, password, role) VALUES
+(1, "admin", "admin", "COCamV7QXyjOuuEah89/zkxLosT5upJt", "ADMIN"),
+(2, "user", "user", "cDjtDde/K7PmQm44clmbSKjaZl/Se9fD", "USER");

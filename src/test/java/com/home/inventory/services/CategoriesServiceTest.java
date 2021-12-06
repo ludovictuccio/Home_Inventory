@@ -100,7 +100,7 @@ public class CategoriesServiceTest {
 
         // WHEN
         Categories result = categorieService
-                .getCategoryById(categoriesRepository.findAll().get(0));
+                .getCategoryById(categoriesRepository.findAll().get(0).getId());
 
         // THEN
         assertThat(result).isNotNull();
