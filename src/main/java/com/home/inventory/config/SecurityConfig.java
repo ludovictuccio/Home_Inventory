@@ -47,11 +47,15 @@ public class SecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests().antMatchers("/login", "/categories/**")
+            http.authorizeRequests()
+                    .antMatchers("/login", "/categories/**",
+                            "/sous-categories/**", "/fournisseurs/**",
+                            "/produits/**")
                     .authenticated().antMatchers("/user/**")
                     .hasAnyAuthority("ADMIN").and().csrf().disable().httpBasic()
-                    .and().formLogin().defaultSuccessUrl("/").and().logout()
-                    .logoutUrl("/app-logout").logoutSuccessUrl("/");
+                    .and().formLogin().defaultSuccessUrl("/categories/list")
+                    .and().logout().logoutUrl("/app-logout")
+                    .logoutSuccessUrl("/");
         }
     }
 

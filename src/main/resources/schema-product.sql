@@ -66,5 +66,5 @@ CREATE TABLE users (
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO users(id, fullname, username, password, role) VALUES
-(1, "admin", "admin", "COCamV7QXyjOuuEah89/zkxLosT5upJt", "ADMIN"),
-(2, "user", "user", "cDjtDde/K7PmQm44clmbSKjaZl/Se9fD", "USER");
+(1, "admin", "admin", "$2a$12$rDcGQ4UBh2NCqPQCpuL56eVi7J6iUHwJnZfelDp0pFcdFGhcaR8s6", "ADMIN"),
+(2, "user", "user", "$2a$12$yCXbizMDRWwGgWejK4cK0O4hw8Rskq04ZGKmBkXXPVCL8p4yPMcqC", "USER");

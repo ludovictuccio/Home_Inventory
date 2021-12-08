@@ -12,4 +12,9 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/admin/home")
+    public String adminHome(final Model model) {
+        return "redirect:/categories/list";
+    }
+
 }
