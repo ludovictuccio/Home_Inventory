@@ -49,4 +49,11 @@ public class Categories implements Serializable {
         this.description = descriptionCategorie;
     }
 
+    public Categories(final Long catId,
+            @NotBlank(message = "Description obligatoire") String descriptionCategorie) {
+        super();
+        this.id = catId;
+        this.description = descriptionCategorie;
+    }
+
 }
