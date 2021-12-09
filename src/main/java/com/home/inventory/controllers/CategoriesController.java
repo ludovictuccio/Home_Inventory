@@ -7,12 +7,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.home.inventory.entities.Categories;
 import com.home.inventory.repository.CategoriesRepository;
@@ -34,19 +32,6 @@ public class CategoriesController {
     public String home(final Model model) {
         model.addAttribute("categories", categoriesRepository.findAll());
         return "categories/list";
-    }
-
-    @GetMapping("/categories/get/{id}")
-    public ModelAndView getCategory(@PathVariable("id") final Long id,
-            final ModelMap model) {
-        Categories category = categoriesService.getCategoryById(id);
-
-        if (category == null) {
-            LOGGER.error("Invalid category Id: {}", id);
-            return new ModelAndView("categories/list");
-        }
-        model.addAttribute("categorySelected", category);
-        return new ModelAndView("categories/get", model);
     }
 
     @GetMapping("/categories/add")
@@ -75,7 +60,7 @@ public class CategoriesController {
 
         if (category == null) {
             LOGGER.error("Invalid category Id: {}", id);
-            return "redirect:/categories/get";
+            return "redirect:/categories/list";
         }
         model.addAttribute("category", category);
         return "categories/update";
@@ -92,7 +77,15 @@ public class CategoriesController {
         category.setId(id);
         categoriesService.updateCategoryById(category, id);
         model.addAttribute("category", category);
-        return "redirect:/categories/get/{id}";
+        return "redirect:/categories/list";
+    }
+
+    @GetMapping("/categories/delete/{id}")
+    public String deleteCategory(@PathVariable("id") final Long id,
+            final Model model) {
+        categoriesService.deleteCategoryById(id);
+        model.addAttribute("categories", categoriesRepository.findAll());
+        return "redirect:/categories/list";
     }
 
 }

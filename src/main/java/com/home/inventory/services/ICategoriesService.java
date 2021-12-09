@@ -13,14 +13,6 @@ public interface ICategoriesService {
     Categories addCategory(Categories category);
 
     /**
-     * Method used to get category by description.
-     * 
-     * @param description
-     * @return Categories
-     */
-    Categories getCategoryByDescription(String description);
-
-    /**
      * Method used to get category by ID.
      * 
      * @param category

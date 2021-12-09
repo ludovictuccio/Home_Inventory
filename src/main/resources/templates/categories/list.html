@@ -10,40 +10,48 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">		
-			<h2 style="width: 100%">Liste de catégories</h2>
+		<div class="row">
+			<h2 style="width: 100%">Liste des catégories</h2>
 		</div>
 		<div class="row">
-		<div class="col-6"></div>
+			<div class="col-6"></div>
 			<div class="col-6 text-right">
 				<a href="/">Menu</a>&nbsp;
 			</div>
 		</div>
-
-		<div >
-			<table class="table table-striped table-bordered" style="width: 100%" id="mytable">
+		<div>
+			<table class="table table-striped table-bordered" style="width: 100%"
+				id="mytable">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Description</th>	
+						<th>Nom de la catégorie :</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="category : ${categories}">
-						<td th:text="${category.id}"></td>
-						<td th:text="${category.description}"></td>						
-						<td style="width: 50%" class="text-center"><a
-							th:href="@{/categories/get/{id}(id=${category.id})}">Selectionner</a>&nbsp;					
+					<tr class="text-center" th:each="category : ${categories}">
+						<td th:text="${category.description}"></td>
+						<td style="width: 15%" class="text-center"><a
+							th:href="@{/categories/update/{id}(id=${category.id})}">Modifier</a>&nbsp;
+						
+						<td style="width: 15%" class="text-center"><a
+							th:href="@{/categories/delete/{id}(id=${category.id})}">Supprimer</a>&nbsp;
+
+						
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		</div>
-		<div class="row">
-		<div class="col-1"></div>
-			<a href="/categories/add" class="btn btn-primary btn-sm" >Ajouter une catégorie</a>
 	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-10"></div>
+			<a href="/categories/add" class="btn btn-primary btn-sm">Ajouter
+				une catégorie</a>
+		</div>
+	</div>
+
 </body>
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script
 	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>

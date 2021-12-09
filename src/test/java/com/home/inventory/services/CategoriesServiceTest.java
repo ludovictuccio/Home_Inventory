@@ -77,22 +77,6 @@ public class CategoriesServiceTest {
 
     @Test
     @Tag("GET")
-    @DisplayName("Get by description - OK - MAJUSCULES")
-    public void givenCategory_whenGetByDescriptionWithMajuscules_thenReturnOk() {
-        // GIVEN
-        categoriesRepository.save(new Categories("Maison"));
-
-        // WHEN
-        Categories result = categorieService.getCategoryByDescription("mAISON");
-
-        // THEN
-        assertThat(result).isNotNull();
-        assertThat(result.getId()).isNotNull();
-        assertThat(result.getDescription()).isEqualTo("Maison");
-    }
-
-    @Test
-    @Tag("GET")
     @DisplayName("Get by ID - OK ")
     public void givenCategory_whenGetById_thenReturnOk() {
         // GIVEN

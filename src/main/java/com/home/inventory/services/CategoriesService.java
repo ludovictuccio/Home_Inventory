@@ -26,19 +26,8 @@ public class CategoriesService implements ICategoriesService {
             return null;
         }
         categoriesRepository.save(category);
-        LOGGER.info("Succes new user acccount creation");
+        LOGGER.info("Succes new category creation");
         return category;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Categories getCategoryByDescription(final String description) {
-        if (categoriesRepository
-                .findCategoriesByDescription(description) == null) {
-            return null;
-        }
-        return categoriesRepository.findCategoriesByDescription(description);
     }
 
     /**
