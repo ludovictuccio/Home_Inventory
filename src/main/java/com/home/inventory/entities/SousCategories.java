@@ -13,12 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -34,7 +38,8 @@ public class SousCategories implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "Description obligatoire")
+    @NotBlank(message = "Description obligatoire.")
+    @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.")
     @Column(name = "description")
     private String description;
 
@@ -44,9 +49,16 @@ public class SousCategories implements Serializable {
     private Produit produitId;
 
     public SousCategories(
-            @NotBlank(message = "Description obligatoire") String descriptionSousCat) {
+            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String souscatdescription) {
         super();
-        this.description = descriptionSousCat;
+        this.description = souscatdescription;
+    }
+
+    public SousCategories(Long id,
+            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String souscatdescription) {
+        super();
+        this.id = id;
+        this.description = souscatdescription;
     }
 
 }

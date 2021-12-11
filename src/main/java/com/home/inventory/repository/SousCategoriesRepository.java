@@ -11,4 +11,6 @@ public interface SousCategoriesRepository
 
     SousCategories findSousCategoriesById(Long SousCategoriesId);
 
+    SousCategories findSousCategoriesByDescription(String description);
+
 }

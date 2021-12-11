@@ -49,13 +49,13 @@ public class Categories implements Serializable {
     private Produit produitId;
 
     public Categories(
-            @NotBlank(message = "Description obligatoire") String descriptionCategorie) {
+            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String descriptionCategorie) {
         super();
         this.description = descriptionCategorie;
     }
 
     public Categories(final Long catId,
-            @NotBlank(message = "Description obligatoire") String descriptionCategorie) {
+            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String descriptionCategorie) {
         super();
         this.id = catId;
         this.description = descriptionCategorie;

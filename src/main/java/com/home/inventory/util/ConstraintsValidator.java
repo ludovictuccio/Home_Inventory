@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.home.inventory.entities.Categories;
+import com.home.inventory.entities.SousCategories;
 
 public class ConstraintsValidator {
 
@@ -31,6 +32,23 @@ public class ConstraintsValidator {
             return null;
         }
         return category;
+    }
+
+    public static SousCategories checkValidSousCategory(
+            final SousCategories sousCategory) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<SousCategories>> constraintViolations = validator
+                .validate(sousCategory);
+        if (constraintViolations.size() > 0) {
+            for (ConstraintViolation<SousCategories> contraintes : constraintViolations) {
+                LOGGER.error(contraintes.getRootBeanClass().getSimpleName()
+                        + "." + contraintes.getPropertyPath() + " "
+                        + contraintes.getMessage());
+            }
+            return null;
+        }
+        return sousCategory;
     }
 
 }
