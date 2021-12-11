@@ -20,12 +20,14 @@ public class ConstraintsValidator {
     public static Categories checkValidCategory(final Categories category) {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
-
         Set<ConstraintViolation<Categories>> constraintViolations = validator
                 .validate(category);
         if (constraintViolations.size() > 0) {
-            LOGGER.error(
-                    "ERROR: a constraint was violated. Description is mandatory and can not be empty.");
+            for (ConstraintViolation<Categories> contraintes : constraintViolations) {
+                LOGGER.error(contraintes.getRootBeanClass().getSimpleName()
+                        + "." + contraintes.getPropertyPath() + " "
+                        + contraintes.getMessage());
+            }
             return null;
         }
         return category;

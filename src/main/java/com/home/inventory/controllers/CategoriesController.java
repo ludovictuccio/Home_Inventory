@@ -9,41 +9,44 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.home.inventory.entities.Categories;
 import com.home.inventory.repository.CategoriesRepository;
-import com.home.inventory.services.CategoriesService;
+import com.home.inventory.services.ICategoriesService;
 
 @Controller
+@RequestMapping("/categories")
 public class CategoriesController {
 
     private static final Logger LOGGER = LogManager
             .getLogger("CategoriesController");
 
     @Autowired
-    private CategoriesService categoriesService;
+    private ICategoriesService categoriesService;
 
     @Autowired
     private CategoriesRepository categoriesRepository;
 
-    @GetMapping("/categories/list")
+    @GetMapping("/list")
     public String home(final Model model) {
         model.addAttribute("categories", categoriesRepository.findAll());
         return "categories/list";
     }
 
-    @GetMapping("/categories/add")
+    @GetMapping("/add")
     public String addCategory(final Model model) {
         model.addAttribute("category", new Categories());
         return "categories/add";
     }
 
-    @PostMapping("/categories/validate")
-    public String validate(@Valid final Categories category,
+    @PostMapping("/validate")
+    public String validate(
+            @Valid @ModelAttribute("category") Categories category,
             final BindingResult result, final Model model) {
-
         if (!result.hasErrors()) {
             Categories categoryToAdd = categoriesService.addCategory(category);
             model.addAttribute("category", categoryToAdd);
@@ -53,7 +56,7 @@ public class CategoriesController {
         return "categories/add";
     }
 
-    @GetMapping("/categories/update/{id}")
+    @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") final Long id,
             final Model model) {
         Categories category = categoriesService.getCategoryById(id);
@@ -66,10 +69,10 @@ public class CategoriesController {
         return "categories/update";
     }
 
-    @PostMapping("/categories/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateCategory(@PathVariable("id") final Long id,
-            final Categories category, final BindingResult result,
-            final Model model) {
+            @Valid @ModelAttribute("category") Categories category,
+            final BindingResult result, final Model model) {
         if (result.hasErrors()) {
             LOGGER.info("POST request FAILED for: /categories/update/{id}");
             return "categories/update";
@@ -80,7 +83,7 @@ public class CategoriesController {
         return "redirect:/categories/list";
     }
 
-    @GetMapping("/categories/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable("id") final Long id,
             final Model model) {
         categoriesService.deleteCategoryById(id);

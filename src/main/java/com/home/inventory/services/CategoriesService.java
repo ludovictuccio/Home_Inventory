@@ -18,7 +18,10 @@ public class CategoriesService implements ICategoriesService {
     @Autowired
     private CategoriesRepository categoriesRepository;
 
-    public Categories addCategory(final Categories category) {
+    /**
+     * {@inheritDoc}
+     */
+    public Categories addCategory(Categories category) {
 
         if ((ConstraintsValidator.checkValidCategory(category) == null)
                 || (categoriesRepository.findCategoriesByDescription(

@@ -14,24 +14,26 @@
 		</div>
 
 		<div class="row">
-			<form action="#" th:action="@{/categories/validate}"
-				th:object="${category}" method="post" class="form-horizontal"
-				style="width: 100%">
+
+			<form th:action="@{/categories/validate}" th:object="${category}"
+				method="post" class="form-horizontal" style="width: 100%">
 
 				<div class="form-group">
-					<label for="description" class="col-sm-2 control-label">Description de la catégroie</label>
+					<label for="description" class="col-sm-5 control-label">Quel
+						nom de catégorie voulez-vous créer ?</label>
 					<div class="col-sm-10">
 						<input type="text" th:field="*{description}" id="description"
 							placeholder="Description" class="col-4">
 						<p class="text-danger" th:if="${#fields.hasErrors('description')}"
 							th:errors="*{description}"></p>
 					</div>
-				</div>				
+				</div>
 
 				<div class="form-group">
 					<div class="col-sm-12">
-						<a class="btn btn-danger btn-sm" href="/categories/list">Annuler</a> <input
-							class="btn btn-primary btn-sm" type="submit" value="Ajouter une catégorie">
+						<a class="btn btn-danger btn-sm" href="/categories/list">Annuler</a>
+						<input class="btn btn-primary btn-sm" type="submit"
+							value="Ajouter une catégorie">
 					</div>
 				</div>
 
