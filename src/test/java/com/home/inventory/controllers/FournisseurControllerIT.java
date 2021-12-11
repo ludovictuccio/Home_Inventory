@@ -19,12 +19,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.home.inventory.repository.CategoriesRepository;
+import com.home.inventory.repository.FournisseurRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class CategoriesControllerIT {
+public class FournisseurControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -33,72 +33,71 @@ public class CategoriesControllerIT {
     private WebApplicationContext wac;
 
     @Autowired
-    private CategoriesRepository categoriesRepository;
+    private FournisseurRepository fournisseurRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    private static final String CATEGORIES = "categories";
-    private static final String CATEGORY = "category";
+    private static final String FOUNISSEURS = "fournisseurs";
+    private static final String FOUNISSEUR = "fournisseur";
 
-    private static final String URI_GET_CATEGORIES_LIST = "/categories/list";
-    private static final String URI_ADD_CATEGORIES = "/categories/add";
-    private static final String URI_PUT_CATEGORIES = "/categories/update/5";
+    private static final String URI_GET_FOURNISSEURS_LIST = "/fournisseurs/list";
+    private static final String URI_ADD_FOUNISSEURS = "/fournisseurs/add";
+    private static final String URI_PUT_FOUNISSEURS = "/fournisseurs/update/5";
 
     @BeforeEach
     public void setUpPerTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        categoriesRepository.deleteAll();
+        fournisseurRepository.deleteAll();
     }
 
     @Test
-    @Tag("/categories/list")
+    @Tag("/fournisseurs/list")
     @DisplayName("Get - list")
-    public void givenCategoriesList_whenGetList_thenReturnOk()
+    public void givenFournisseursList_whenGetList_thenReturnOk()
             throws Exception {
         this.mockMvc
-                .perform(MockMvcRequestBuilders.get(URI_GET_CATEGORIES_LIST)
+                .perform(MockMvcRequestBuilders.get(URI_GET_FOURNISSEURS_LIST)
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute(CATEGORIES,
-                        categoriesRepository.findAll()))
+                .andExpect(MockMvcResultMatchers.model().attribute(FOUNISSEURS,
+                        fournisseurRepository.findAll()))
                 .andExpect(MockMvcResultMatchers.model().hasNoErrors())
                 .andExpect(status().isOk()).andReturn();
     }
 
     @Test
-    @Tag("/categories/add")
+    @Tag("/fournisseurs/add")
     @DisplayName("Get - add")
     public void givenGetMapping_whenAdd_thenReturnOk() throws Exception {
         this.mockMvc
-                .perform(MockMvcRequestBuilders.get(URI_ADD_CATEGORIES)
+                .perform(MockMvcRequestBuilders.get(URI_ADD_FOUNISSEURS)
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(
-                        MockMvcResultMatchers.model().attributeExists(CATEGORY))
+                .andExpect(MockMvcResultMatchers.model()
+                        .attributeExists(FOUNISSEUR))
                 .andExpect(MockMvcResultMatchers.model().hasNoErrors())
                 .andExpect(status().isOk()).andReturn();
     }
 
 //    @Test
-//    @Tag("/categories/update/{id}")
-//    @DisplayName("Post - update")
+//    @Tag("/fournisseurs/update/{id}")
+//    @DisplayName("Update by id")
 //    public void givenUpdate_whenPostWithValidInfos_thenreturnOk()
 //            throws Exception {
-//        Categories category = new Categories(5L, "Maison");
-//        String jsonContent = objectMapper.writeValueAsString(category);
-//        categoriesRepository.save(category);
+//        Fournisseur fournisseur = new Fournisseur(5L, "Casto");
+//        String jsonContent = objectMapper.writeValueAsString(fournisseur);
+//        fournisseurRepository.save(fournisseur);
 //
 //        this.mockMvc
-//                .perform(MockMvcRequestBuilders.post(URI_PUT_CATEGORIES)
+//                .perform(MockMvcRequestBuilders.post(URI_PUT_FOUNISSEURS)
 //                        .contentType(MediaType.ALL).content(jsonContent))
 //                .andDo(MockMvcResultHandlers.print())
 //                .andExpect(MockMvcResultMatchers.model().hasNoErrors())
 //                .andExpect(MockMvcResultMatchers
-//                        .redirectedUrl(URI_GET_CATEGORIES_LIST))
+//                        .redirectedUrl(URI_GET_FOURNISSEURS_LIST))
 //                .andReturn();
 //    }
-
 }
