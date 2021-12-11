@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.home.inventory.entities.Categories;
+import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.entities.SousCategories;
 
 public class ConstraintsValidator {
@@ -49,6 +50,23 @@ public class ConstraintsValidator {
             return null;
         }
         return sousCategory;
+    }
+
+    public static Fournisseur checkValidFournisseur(
+            final Fournisseur fournisseur) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Fournisseur>> constraintViolations = validator
+                .validate(fournisseur);
+        if (constraintViolations.size() > 0) {
+            for (ConstraintViolation<Fournisseur> contraintes : constraintViolations) {
+                LOGGER.error(contraintes.getRootBeanClass().getSimpleName()
+                        + "." + contraintes.getPropertyPath() + " "
+                        + contraintes.getMessage());
+            }
+            return null;
+        }
+        return fournisseur;
     }
 
 }

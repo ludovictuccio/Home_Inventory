@@ -11,4 +11,5 @@ public interface FournisseurRepository
 
     Fournisseur findFournisseurById(Long FournisseurId);
 
+    Fournisseur findFournisseurByDescription(String description);
 }

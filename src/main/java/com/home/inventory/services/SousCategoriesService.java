@@ -13,7 +13,7 @@ import com.home.inventory.util.ConstraintsValidator;
 public class SousCategoriesService implements ISousCategoriesService {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger("CategoriesService");
+            .getLogger("SousCategoriesService");
 
     @Autowired
     private SousCategoriesRepository sousCategoriesRepository;
