@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.home.inventory.entities.Categories;
 import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.entities.SousCategories;
+import com.home.inventory.entities.User;
 
 public class ConstraintsValidator {
 
@@ -67,6 +68,28 @@ public class ConstraintsValidator {
             return null;
         }
         return fournisseur;
+    }
+
+    public static User checkValidUser(final User user) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> constraintViolations = validator
+                .validate(user);
+        if (constraintViolations.size() > 0) {
+            LOGGER.error(
+                    "ERROR: a constraint was violated. Please check the informations entered.");
+            for (ConstraintViolation<User> contraintes : constraintViolations) {
+                LOGGER.error(contraintes.getRootBeanClass().getSimpleName()
+                        + "." + contraintes.getPropertyPath() + " "
+                        + contraintes.getMessage());
+            }
+            return null;
+        } else if (!user.getRole().equalsIgnoreCase("USER")
+                && !user.getRole().equalsIgnoreCase("ADMIN")) {
+            LOGGER.error("ERROR: the role must be 'admin' or 'user'");
+            return null;
+        }
+        return user;
     }
 
 }

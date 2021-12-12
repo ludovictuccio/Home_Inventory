@@ -58,13 +58,14 @@ ON UPDATE NO ACTION;
 
 CREATE TABLE users (
 				id INTEGER NOT NULL,
-				username VARCHAR(250),
-				password VARCHAR(250),
-				fullname VARCHAR(250),
-				role VARCHAR(250),
+				username VARCHAR(250) NOT NULL,
+                email VARCHAR(250) NOT NULL,
+				password VARCHAR(250) NOT NULL,
+				role VARCHAR(250) NOT NULL,
 				PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO users(id, fullname, username, password, role) VALUES
-(1, "admin", "admin", "$2a$12$rDcGQ4UBh2NCqPQCpuL56eVi7J6iUHwJnZfelDp0pFcdFGhcaR8s6", "ADMIN"),
-(2, "user", "user", "$2a$12$yCXbizMDRWwGgWejK4cK0O4hw8Rskq04ZGKmBkXXPVCL8p4yPMcqC", "USER");
+INSERT INTO users (id, username, email, password, role) VALUES
+(1, "Ludo", "$2a$12$KFnNNQ0WqY.y1mPSXgbcJODFQsYUPhJhkYqVDH9Rv8eb8gDXo2Q5a", "$2a$12$rDcGQ4UBh2NCqPQCpuL56eVi7J6iUHwJnZfelDp0pFcdFGhcaR8s6", "ADMIN"),
+(2, "user", "user", "$2a$12$yCXbizMDRWwGgWejK4cK0O4hw8Rskq04ZGKmBkXXPVCL8p4yPMcqC", "USER"),
+(3, "admin", "admin", "$2a$12$rDcGQ4UBh2NCqPQCpuL56eVi7J6iUHwJnZfelDp0pFcdFGhcaR8s6", "ADMIN");
