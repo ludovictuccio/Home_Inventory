@@ -46,7 +46,7 @@ public class User implements Serializable {
     @Email
     private String email;
 
-    @Pattern(regexp = Constants.PASSWORD_PATTERN, message = "The password must include a digit, an uppercase and lowercase letter and a special character, without space.")
+    @Pattern(regexp = Constants.PASSWORD_PATTERN, message = "Le mot de passe doit inclure : un chiffre, une lettre en majuscule, une lettre en minuscule, un caractère spécial (exemple: - * / & ...) et sans espace.")
     @Column(name = "password")
     @NotBlank(message = "Password is mandatory")
     private String password;
