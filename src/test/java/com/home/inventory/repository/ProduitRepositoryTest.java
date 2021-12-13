@@ -134,4 +134,34 @@ public class ProduitRepositoryTest {
         assertThat(produitRepository.findProduitById(3L)).isNull();
     }
 
+    @Test
+    @Tag("findProduitByNoFacture")
+    @DisplayName("findProduitByNoFacture - OK")
+    public void givenTwoProductsSavedInDb_whenFindProduitByNoFacture_thenReturnCorrectValues() {
+        // GIVEN
+        produitRepository.save(produitOne);
+        produitRepository.save(produitTwo);
+        // WHEN
+        Produit result = produitRepository.findProduitByNoFacture("0999984f");
+
+        // THEN
+        assertThat(result).isNotNull();
+        assertThat(result.getDescription()).isEqualTo("Evier");
+        assertThat(result.getLieuAchat()).isEqualTo("Niort");
+    }
+
+    @Test
+    @Tag("findProduitByNoFacture")
+    @DisplayName("findProduitByNoFacture - Error - Unknow")
+    public void givenTwoProductsSavedInDb_whenFindProduitByUnknoNoFacture_thenReturnCorrectValues() {
+        // GIVEN
+        produitRepository.save(produitOne);
+        produitRepository.save(produitTwo);
+        // WHEN
+        Produit result = produitRepository.findProduitByNoFacture("unknow");
+
+        // THEN
+        assertThat(result).isNull();
+    }
+
 }

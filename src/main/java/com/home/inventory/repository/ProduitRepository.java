@@ -10,4 +10,6 @@ public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
     Produit findProduitById(Long produitId);
 
+    Produit findProduitByNoFacture(String noFacture);
+
 }
