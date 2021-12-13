@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.home.inventory.entities.Categories;
 import com.home.inventory.entities.Fournisseur;
+import com.home.inventory.entities.Produit;
 import com.home.inventory.entities.SousCategories;
 import com.home.inventory.entities.User;
 
@@ -90,6 +91,22 @@ public class ConstraintsValidator {
             return null;
         }
         return user;
+    }
+
+    public static Produit checkValidProduit(final Produit produit) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Produit>> constraintViolations = validator
+                .validate(produit);
+        if (constraintViolations.size() > 0) {
+            for (ConstraintViolation<Produit> contraintes : constraintViolations) {
+                LOGGER.error(contraintes.getRootBeanClass().getSimpleName()
+                        + "." + contraintes.getPropertyPath() + " "
+                        + contraintes.getMessage());
+            }
+            return null;
+        }
+        return produit;
     }
 
 }
