@@ -3,22 +3,28 @@ package com.home.inventory.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
+@EqualsAndHashCode
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -27,20 +33,23 @@ import lombok.Setter;
 @Table(name = "produit")
 public class Produit implements Serializable {
 
-    private static final long serialVersionUID = 2024556901701412133L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
+    @ManyToOne
+    @JoinColumn(name = "categories_id", insertable = true, updatable = true, nullable = false)
     private Categories categorieProduit;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
+    @ManyToOne
+    @JoinColumn(name = "sous_categories_id", insertable = true, updatable = true, nullable = false)
     private SousCategories sousCategorieProduit;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "produitId", fetch = FetchType.EAGER)
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id", insertable = true, updatable = true, nullable = false)
     private Fournisseur fournisseurProduit;
 
     @NotBlank(message = "Description obligatoire")
@@ -56,12 +65,16 @@ public class Produit implements Serializable {
     @Column(name = "no_facture")
     private String noFacture;
 
+    @PositiveOrZero
     @Column(name = "quantite")
     private double quantite;
 
+    @PositiveOrZero
+    @DecimalMax(value = "100.0")
     @Column(name = "pourcent_remise")
     private double pourcentageDeRemise;
 
+    @PositiveOrZero
     @Column(name = "prix_achat_unitaire_ttc")
     private double prixAchatUnitaireTTC;
 
@@ -71,24 +84,47 @@ public class Produit implements Serializable {
     @Column(name = "document_photo")
     private String documentEtPhoto;
 
-    public Produit(Categories categorieProd, SousCategories sousCategorieProd,
-            Fournisseur fournisseurProd,
-            @NotBlank(message = "Description obligatoire") String descriptionProd,
-            LocalDate dateAchatProd, String lieuAchatProd, String noFactureProd,
-            double qte, double pourcentageRemise,
-            double prixAchatUnitaireTTCProd, String comm) {
+    public Produit(Categories categorieProduit,
+            SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
+            @NotBlank(message = "Description obligatoire") String description,
+            LocalDate dateAchat, String lieuAchat, String noFacture,
+            @PositiveOrZero double quantite,
+            @PositiveOrZero @DecimalMax("100.0") double pourcentageDeRemise,
+            @PositiveOrZero double prixAchatUnitaireTTC, String commentaire) {
         super();
-        this.categorieProduit = categorieProd;
-        this.sousCategorieProduit = sousCategorieProd;
-        this.fournisseurProduit = fournisseurProd;
-        this.description = descriptionProd;
-        this.dateAchat = dateAchatProd;
-        this.lieuAchat = lieuAchatProd;
-        this.noFacture = noFactureProd;
-        this.quantite = qte;
-        this.pourcentageDeRemise = pourcentageRemise;
-        this.prixAchatUnitaireTTC = prixAchatUnitaireTTCProd;
-        this.commentaire = comm;
+        this.categorieProduit = categorieProduit;
+        this.sousCategorieProduit = sousCategorieProduit;
+        this.fournisseurProduit = fournisseurProduit;
+        this.description = description;
+        this.dateAchat = dateAchat;
+        this.lieuAchat = lieuAchat;
+        this.noFacture = noFacture;
+        this.quantite = quantite;
+        this.pourcentageDeRemise = pourcentageDeRemise;
+        this.prixAchatUnitaireTTC = prixAchatUnitaireTTC;
+        this.commentaire = commentaire;
+    }
+
+    public Produit(Long id, Categories categorieProduit,
+            SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
+            @NotBlank(message = "Description obligatoire") String description,
+            LocalDate dateAchat, String lieuAchat, String noFacture,
+            @PositiveOrZero double quantite,
+            @PositiveOrZero @DecimalMax("100.0") double pourcentageDeRemise,
+            @PositiveOrZero double prixAchatUnitaireTTC, String commentaire) {
+        super();
+        this.id = id;
+        this.categorieProduit = categorieProduit;
+        this.sousCategorieProduit = sousCategorieProduit;
+        this.fournisseurProduit = fournisseurProduit;
+        this.description = description;
+        this.dateAchat = dateAchat;
+        this.lieuAchat = lieuAchat;
+        this.noFacture = noFacture;
+        this.quantite = quantite;
+        this.pourcentageDeRemise = pourcentageDeRemise;
+        this.prixAchatUnitaireTTC = prixAchatUnitaireTTC;
+        this.commentaire = commentaire;
     }
 
 }
