@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.home.inventory.entities.Categories;
+import com.home.inventory.entities.Facture;
 import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.entities.Produit;
 import com.home.inventory.entities.SousCategories;
@@ -107,6 +108,22 @@ public class ConstraintsValidator {
             return null;
         }
         return produit;
+    }
+
+    public static Facture checkValidFacture(final Facture facture) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Facture>> constraintViolations = validator
+                .validate(facture);
+        if (constraintViolations.size() > 0) {
+            for (ConstraintViolation<Facture> contraintes : constraintViolations) {
+                LOGGER.error(contraintes.getRootBeanClass().getSimpleName()
+                        + "." + contraintes.getPropertyPath() + " "
+                        + contraintes.getMessage());
+            }
+            return null;
+        }
+        return facture;
     }
 
 }

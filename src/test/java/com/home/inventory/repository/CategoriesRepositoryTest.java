@@ -22,7 +22,6 @@ public class CategoriesRepositoryTest {
     private CategoriesRepository categoriesRepository;
 
     private static Categories categorieOne = new Categories("Maison");
-
     private static Categories categorieTwo = new Categories("Jardin");
 
     @BeforeEach
