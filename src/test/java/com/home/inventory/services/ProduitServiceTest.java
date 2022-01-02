@@ -14,10 +14,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.home.inventory.entities.Categories;
+import com.home.inventory.entities.Facture;
 import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.entities.Produit;
 import com.home.inventory.entities.SousCategories;
 import com.home.inventory.repository.CategoriesRepository;
+import com.home.inventory.repository.FactureRepository;
 import com.home.inventory.repository.FournisseurRepository;
 import com.home.inventory.repository.ProduitRepository;
 import com.home.inventory.repository.SousCategoriesRepository;
@@ -44,11 +46,15 @@ public class ProduitServiceTest {
     @Autowired
     private FournisseurRepository fournisseurRepository;
 
+    @Autowired
+    private FactureRepository factureRepository;
+
     private static Produit produit;
 
     private static final String CATEGORIE_ONE = "Maison";
     private static final String SOUS_CATEGORIE_ONE = "Chambre";
     private static final String FOURNISSEUR = "Castorama";
+    private static final String FACTURE = "A0001";
 
     @BeforeEach
     public void setUpPerTest() {
@@ -57,9 +63,9 @@ public class ProduitServiceTest {
 
         produit = new Produit(categoriesRepository.findAll().get(0),
                 sousCategoriesRepository.findAll().get(0),
-                fournisseurRepository.findAll().get(0), "Lampadaires",
-                LocalDate.of(2020, 10, 10), "Paris", "F005X", 1.0, 0.0, 50.0,
-                "Promo");
+                fournisseurRepository.findAll().get(0),
+                factureRepository.findAll().get(0), "Lampadaires",
+                LocalDate.of(2020, 10, 10), "Paris", 1.0, 0.0, 50.0, "Promo");
     }
 
     @Test
@@ -79,10 +85,11 @@ public class ProduitServiceTest {
                 .isEqualTo(SOUS_CATEGORIE_ONE);
         assertThat(result.getFournisseurProduit().getDescription())
                 .isEqualTo(FOURNISSEUR);
+        assertThat(result.getFactureProduit().getDescription())
+                .isEqualTo(FACTURE);
         assertThat(result.getDescription()).isEqualTo("Lampadaires");
         assertThat(result.getDateAchat()).isEqualTo(LocalDate.of(2020, 10, 10));
         assertThat(result.getLieuAchat()).isEqualTo("Paris");
-        assertThat(result.getNoFacture()).isEqualTo("F005X");
         assertThat(result.getQuantite()).isEqualTo(1.0);
         assertThat(result.getPourcentageDeRemise()).isEqualTo(0.0);
         assertThat(result.getPrixAchatUnitaireTTC()).isEqualTo(50.0);
@@ -91,36 +98,15 @@ public class ProduitServiceTest {
 
     @Test
     @Tag("POST")
-    @DisplayName("Add new Produit - ERROR - Produit already exists (same no facture)")
-    public void givenExistingProduit_whenAddNewCategoryWithSameFacture_thenReturnNull() {
-        // GIVEN
-        produitService.addProduit(produit);
-        assertThat(produitRepository.findAll().size()).isEqualTo(1);
-
-        Produit sameProduct = new Produit(new Categories(CATEGORIE_ONE),
-                new SousCategories(SOUS_CATEGORIE_ONE),
-                new Fournisseur(FOURNISSEUR), "Lampadaires",
-                LocalDate.of(2020, 10, 10), "Paris", "F005X", 1.0, 0.0, 50.0,
-                "Promo");
-
-        // WHEN
-        Produit result = produitService.addProduit(sameProduct);
-
-        // THEN
-        assertThat(result).isNull();
-        assertThat(produitRepository.findAll().size()).isEqualTo(1);
-    }
-
-    @Test
-    @Tag("POST")
     @DisplayName("Add new Produit - ERROR - Empty description")
     public void givenZeroProduit_whenAddWithEmptyDescription_thenReturnNull() {
         // GIVEN
         Produit produitWithEmptyDesciption = new Produit(
-                new Categories(CATEGORIE_ONE),
-                new SousCategories(SOUS_CATEGORIE_ONE),
-                new Fournisseur(FOURNISSEUR), "", LocalDate.of(2020, 10, 10),
-                "Paris", "F005X", 1.0, 0.0, 50.0, "Promo");
+                categoriesRepository.findAll().get(0),
+                sousCategoriesRepository.findAll().get(0),
+                fournisseurRepository.findAll().get(0),
+                factureRepository.findAll().get(0), "",
+                LocalDate.of(2020, 10, 10), "", 1.0, 0.0, 50.0, "Promo");
         // WHEN
         Produit result = produitService.addProduit(produitWithEmptyDesciption);
 
@@ -149,10 +135,11 @@ public class ProduitServiceTest {
                 .isEqualTo(SOUS_CATEGORIE_ONE);
         assertThat(result.getFournisseurProduit().getDescription())
                 .isEqualTo(FOURNISSEUR);
+        assertThat(result.getFactureProduit().getDescription())
+                .isEqualTo(FACTURE);
         assertThat(result.getDescription()).isEqualTo("Lampadaires");
         assertThat(result.getDateAchat()).isEqualTo(LocalDate.of(2020, 10, 10));
         assertThat(result.getLieuAchat()).isEqualTo("Paris");
-        assertThat(result.getNoFacture()).isEqualTo("F005X");
         assertThat(result.getQuantite()).isEqualTo(1.0);
         assertThat(result.getPourcentageDeRemise()).isEqualTo(0.0);
         assertThat(result.getPrixAchatUnitaireTTC()).isEqualTo(50.0);
@@ -167,9 +154,11 @@ public class ProduitServiceTest {
         Categories categories2 = new Categories(2L, "Voisin");
         SousCategories sousCategories2 = new SousCategories(2L, "Allée");
         Fournisseur fournisseur2 = new Fournisseur(2L, "Leroy");
+        Facture facture2 = new Facture(2L, "A0006");
         categoriesRepository.save(categories2);
         sousCategoriesRepository.save(sousCategories2);
         fournisseurRepository.save(fournisseur2);
+        factureRepository.save(facture2);
 
         produitService.addProduit(produit);
         assertThat(produitRepository.findAll().get(0).getCategorieProduit()
@@ -178,10 +167,13 @@ public class ProduitServiceTest {
                 .getDescription()).isEqualTo(SOUS_CATEGORIE_ONE);
         assertThat(produitRepository.findAll().get(0).getFournisseurProduit()
                 .getDescription()).isEqualTo(FOURNISSEUR);
+        assertThat(produitRepository.findAll().get(0).getFactureProduit()
+                .getDescription()).isEqualTo(FACTURE);
 
         Produit produitToUpdate = new Produit(categories2, sousCategories2,
-                fournisseur2, "Lampadaires update", LocalDate.of(2020, 1, 1),
-                "Other city", "F005XOTHER", 11.0, 1.0, 50.0, "Promotion");
+                fournisseur2, facture2, "Lampadaires update",
+                LocalDate.of(2020, 1, 1), "Other city", 11.0, 1.0, 50.0,
+                "Promotion");
 
         Long categoryId = produitRepository.findAll().get(0).getId();
 
@@ -201,12 +193,13 @@ public class ProduitServiceTest {
                 .isEqualTo("Allée");
         assertThat(produitUpdated.getFournisseurProduit().getDescription())
                 .isEqualTo("Leroy");
+        assertThat(produitUpdated.getFactureProduit().getDescription())
+                .isEqualTo("A0006");
         assertThat(produitUpdated.getDescription())
                 .isEqualTo("Lampadaires update");
         assertThat(produitUpdated.getDateAchat())
                 .isEqualTo(LocalDate.of(2020, 1, 1));
         assertThat(produitUpdated.getLieuAchat()).isEqualTo("Other city");
-        assertThat(produitUpdated.getNoFacture()).isEqualTo("F005XOTHER");
         assertThat(produitUpdated.getQuantite()).isEqualTo(11.0);
         assertThat(produitUpdated.getPourcentageDeRemise()).isEqualTo(1.0);
         assertThat(produitUpdated.getPrixAchatUnitaireTTC()).isEqualTo(50.0);

@@ -33,7 +33,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "fournisseur")
 public class Fournisseur implements Serializable {
 
-    private static final long serialVersionUID = 1242449377718142897L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -41,16 +41,20 @@ public class Produit implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "categories_id", insertable = true, updatable = true, nullable = false)
+    @JoinColumn(name = "categories_id", insertable = true, updatable = true)
     private Categories categorieProduit;
 
     @ManyToOne
-    @JoinColumn(name = "sous_categories_id", insertable = true, updatable = true, nullable = false)
+    @JoinColumn(name = "sous_categories_id", insertable = true, updatable = true)
     private SousCategories sousCategorieProduit;
 
     @ManyToOne
-    @JoinColumn(name = "fournisseur_id", insertable = true, updatable = true, nullable = false)
+    @JoinColumn(name = "fournisseur_id", insertable = true, updatable = true)
     private Fournisseur fournisseurProduit;
+
+    @ManyToOne
+    @JoinColumn(name = "facture_id")
+    private Facture factureProduit;
 
     @NotBlank(message = "Description obligatoire")
     @Column(name = "description")
@@ -61,9 +65,6 @@ public class Produit implements Serializable {
 
     @Column(name = "lieu_achat")
     private String lieuAchat;
-
-    @Column(name = "no_facture")
-    private String noFacture;
 
     @PositiveOrZero
     @Column(name = "quantite")
@@ -86,8 +87,9 @@ public class Produit implements Serializable {
 
     public Produit(Categories categorieProduit,
             SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
+            Facture facture,
             @NotBlank(message = "Description obligatoire") String description,
-            LocalDate dateAchat, String lieuAchat, String noFacture,
+            LocalDate dateAchat, String lieuAchat,
             @PositiveOrZero double quantite,
             @PositiveOrZero @DecimalMax("100.0") double pourcentageDeRemise,
             @PositiveOrZero double prixAchatUnitaireTTC, String commentaire) {
@@ -95,10 +97,10 @@ public class Produit implements Serializable {
         this.categorieProduit = categorieProduit;
         this.sousCategorieProduit = sousCategorieProduit;
         this.fournisseurProduit = fournisseurProduit;
+        this.factureProduit = facture;
         this.description = description;
         this.dateAchat = dateAchat;
         this.lieuAchat = lieuAchat;
-        this.noFacture = noFacture;
         this.quantite = quantite;
         this.pourcentageDeRemise = pourcentageDeRemise;
         this.prixAchatUnitaireTTC = prixAchatUnitaireTTC;
@@ -107,8 +109,9 @@ public class Produit implements Serializable {
 
     public Produit(Long id, Categories categorieProduit,
             SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
+            Facture facture,
             @NotBlank(message = "Description obligatoire") String description,
-            LocalDate dateAchat, String lieuAchat, String noFacture,
+            LocalDate dateAchat, String lieuAchat,
             @PositiveOrZero double quantite,
             @PositiveOrZero @DecimalMax("100.0") double pourcentageDeRemise,
             @PositiveOrZero double prixAchatUnitaireTTC, String commentaire) {
@@ -117,10 +120,10 @@ public class Produit implements Serializable {
         this.categorieProduit = categorieProduit;
         this.sousCategorieProduit = sousCategorieProduit;
         this.fournisseurProduit = fournisseurProduit;
+        this.factureProduit = facture;
         this.description = description;
         this.dateAchat = dateAchat;
         this.lieuAchat = lieuAchat;
-        this.noFacture = noFacture;
         this.quantite = quantite;
         this.pourcentageDeRemise = pourcentageDeRemise;
         this.prixAchatUnitaireTTC = prixAchatUnitaireTTC;

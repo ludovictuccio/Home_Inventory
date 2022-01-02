@@ -30,8 +30,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Entity
-@Table(name = "sous_categories")
-public class SousCategories implements Serializable {
+@Table(name = "facture")
+public class Facture implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,20 +45,20 @@ public class SousCategories implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "sousCategorieProduit", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "factureProduit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Produit> produitId;
 
-    public SousCategories(
-            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String souscatdescription) {
-        super();
-        this.description = souscatdescription;
-    }
-
-    public SousCategories(Long id,
-            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String souscatdescription) {
+    public Facture(Long id,
+            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String descr) {
         super();
         this.id = id;
-        this.description = souscatdescription;
+        this.description = descr;
+    }
+
+    public Facture(
+            @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String descr) {
+        super();
+        this.description = descr;
     }
 
 }

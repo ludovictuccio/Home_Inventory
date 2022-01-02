@@ -8,3 +8,6 @@ INSERT INTO sous_categories (id, description) VALUES
 
 INSERT INTO fournisseur (id, description) VALUES
 (1, "Castorama");
+
+INSERT INTO facture (id, description) VALUES
+(1, "A0001");

@@ -22,7 +22,6 @@ public class FournisseurRepositoryTest {
     private FournisseurRepository fournisseurRepository;
 
     private static Fournisseur fournisseurOne = new Fournisseur("Leroy");
-
     private static Fournisseur fournisseurTwo = new Fournisseur("Casto");
 
     @BeforeEach

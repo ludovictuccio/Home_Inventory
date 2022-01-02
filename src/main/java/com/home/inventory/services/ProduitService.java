@@ -21,13 +21,9 @@ public class ProduitService implements IProduitService {
     /**
      * {@inheritDoc}
      */
-    public Produit addProduit(Produit produit) {
+    public Produit addProduit(final Produit produit) {
 
-        if ((ConstraintsValidator.checkValidProduit(produit) == null)
-                || (produitRepository.findProduitByNoFacture(
-                        produit.getNoFacture()) != null)) {
-            LOGGER.error(
-                    "Le no de facture est déjà existant. Prière de vérifier qu'il ne soit pas en doublon.");
+        if ((ConstraintsValidator.checkValidProduit(produit) == null)) {
             return null;
         }
         produitRepository.save(produit);
@@ -39,7 +35,7 @@ public class ProduitService implements IProduitService {
      * {@inheritDoc}
      */
     public Produit getProduitById(final Long id) {
-        return produitRepository.findById(id).orElse(null);
+        return produitRepository.findProduitById(id);
     }
 
     /**
@@ -58,10 +54,10 @@ public class ProduitService implements IProduitService {
         existingProduit
                 .setSousCategorieProduit(produit.getSousCategorieProduit());
         existingProduit.setFournisseurProduit(produit.getFournisseurProduit());
+        existingProduit.setFactureProduit(produit.getFactureProduit());
         existingProduit.setDescription(produit.getDescription());
         existingProduit.setDateAchat(produit.getDateAchat());
         existingProduit.setLieuAchat(produit.getLieuAchat());
-        existingProduit.setNoFacture(produit.getNoFacture());
         existingProduit.setQuantite(produit.getQuantite());
         existingProduit
                 .setPourcentageDeRemise(produit.getPourcentageDeRemise());
