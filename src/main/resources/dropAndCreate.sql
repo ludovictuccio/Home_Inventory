@@ -3,35 +3,35 @@ CREATE DATABASE IF NOT EXISTS home_inventory_db_test CHARACTER SET utf8mb4;
 USE home_inventory_db_test;
 
 CREATE TABLE fournisseur (
-                id INT NOT NULL AUTO_INCREMENT,
+                id BIGINT NOT NULL AUTO_INCREMENT,
                 description VARCHAR (250) NOT NULL,
                 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE sous_categories (
-                id INT NOT NULL AUTO_INCREMENT,
+                id BIGINT NOT NULL AUTO_INCREMENT,
                 description VARCHAR (250) NOT NULL,
                 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE categories (
-                id INT NOT NULL AUTO_INCREMENT,
+                id BIGINT NOT NULL AUTO_INCREMENT,
                 description VARCHAR (250) NOT NULL,
                 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE facture (
-                id INT NOT NULL AUTO_INCREMENT,
+                id BIGINT NOT NULL AUTO_INCREMENT,
                 description VARCHAR (250) NOT NULL,
                 PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE produit (
-                id INT NOT NULL AUTO_INCREMENT,
-                categories_id INT NOT NULL,
-                sous_categories_id INT NOT NULL,
-                fournisseur_id INT NOT NULL,
-                facture_id INT NOT NULL,
+                id BIGINT NOT NULL AUTO_INCREMENT,
+                categories_id BIGINT NOT NULL,
+                sous_categories_id BIGINT NOT NULL,
+                fournisseur_id BIGINT NOT NULL,
+                facture_id BIGINT NOT NULL,
                 description VARCHAR (250) NOT NULL,
                 date_achat DATE,
                 lieu_achat VARCHAR (250),
@@ -68,7 +68,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
 CREATE TABLE users (
-				id INTEGER NOT NULL AUTO_INCREMENT,
+				id BIGINT NOT NULL AUTO_INCREMENT,
 				username VARCHAR(250) NOT NULL,
                 email VARCHAR(250) NOT NULL,
 				password VARCHAR(250) NOT NULL,

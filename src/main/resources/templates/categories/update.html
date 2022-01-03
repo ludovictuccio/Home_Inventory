@@ -15,7 +15,7 @@
 
 		<div class="row">
 			<form action="#"
-				th:action="@{/categories/update/{id}(id=${category.id})}"
+				th:action="@{/categories/update?id=(id=${category.id})}"
 				th:object="${category}" method="post" class="form-horizontal"
 				style="width: 100%">
 

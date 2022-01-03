@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.SousCategories;
 import com.home.inventory.repository.SousCategoriesRepository;
@@ -58,8 +58,8 @@ public class SousCategoriesController {
         return "souscategories/add";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") final Long id,
+    @GetMapping("/update")
+    public String showUpdateForm(@RequestParam("id") final Long id,
             final Model model) {
         SousCategories souscategory = sousCategoriesService
                 .getSousCategoryById(id);
@@ -72,8 +72,8 @@ public class SousCategoriesController {
         return "souscategories/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateSousCategory(@PathVariable("id") final Long id,
+    @PostMapping("/update")
+    public String updateSousCategory(@RequestParam("id") final Long id,
             @Valid @ModelAttribute("souscategory") SousCategories souscategory,
             final BindingResult result, final Model model) {
         if (result.hasErrors()) {
@@ -86,8 +86,8 @@ public class SousCategoriesController {
         return "redirect:/souscategories/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteSousCategory(@PathVariable("id") final Long id,
+    @GetMapping("/delete")
+    public String deleteSousCategory(@RequestParam("id") final Long id,
             final Model model) {
         sousCategoriesService.deleteSousCategoryById(id);
         model.addAttribute("souscategories",

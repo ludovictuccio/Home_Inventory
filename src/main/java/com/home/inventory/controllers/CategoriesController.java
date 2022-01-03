@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.Categories;
 import com.home.inventory.repository.CategoriesRepository;
@@ -56,8 +56,8 @@ public class CategoriesController {
         return "categories/add";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") final Long id,
+    @GetMapping("/update")
+    public String showUpdateForm(@RequestParam("id") final Long id,
             final Model model) {
         Categories category = categoriesService.getCategoryById(id);
 
@@ -69,8 +69,8 @@ public class CategoriesController {
         return "categories/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateCategory(@PathVariable("id") final Long id,
+    @PostMapping("/update")
+    public String updateCategory(@RequestParam("id") final Long id,
             @Valid @ModelAttribute("category") Categories category,
             final BindingResult result, final Model model) {
         if (result.hasErrors()) {
@@ -83,8 +83,8 @@ public class CategoriesController {
         return "redirect:/categories/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable("id") final Long id,
+    @GetMapping("/delete")
+    public String deleteCategory(@RequestParam("id") final Long id,
             final Model model) {
         categoriesService.deleteCategoryById(id);
         model.addAttribute("categories", categoriesRepository.findAll());

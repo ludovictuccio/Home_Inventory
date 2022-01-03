@@ -3,24 +3,23 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
-<title>Modifier une sous-catégorie</title>
+<title>Ajouter une facture</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container">
 
 		<div class="row">
-			<h2>Modifier une sous-catégorie</h2>
+			<h2>Ajouter une facture</h2>
 		</div>
 
 		<div class="row">
-			<form action="#"
-				th:action="@{/souscategories/update?id=(id=${souscategory.id})}"
-				th:object="${souscategory}" method="post" class="form-horizontal"
-				style="width: 100%">
+
+			<form th:action="@{/factures/validate}" th:object="${facture}"
+				method="post" class="form-horizontal" style="width: 100%">
 
 				<div class="form-group">
-					<label for="description" class="col-sm-2 control-label">Description</label>
+					<label for="description" class="col-sm-5 control-label">No de facture:</label>
 					<div class="col-sm-10">
 						<input type="text" th:field="*{description}" id="description"
 							placeholder="Description" class="col-4">
@@ -31,14 +30,15 @@
 
 				<div class="form-group">
 					<div class="col-sm-12">
-						<a class="btn btn-danger btn-sm" href="/souscategories/list">Annuler</a>
+						<a class="btn btn-danger btn-sm" href="/factures/list">Annuler</a>
 						<input class="btn btn-primary btn-sm" type="submit"
-							value="Mettre à jour la sous-catégorie"> 														
+							value="Ajouter une facture">
 					</div>
 				</div>
 
 			</form>
 		</div>
+
 	</div>
 </body>
 </html>

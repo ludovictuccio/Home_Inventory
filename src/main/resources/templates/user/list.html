@@ -32,8 +32,8 @@
 					<td th:text="${user.email}"style="width: 40%"></td>
 					<td style="width: 15%" th:text="${user.role}"></td>
 					<td style="width: 20%" class="text-center">
-						<a th:href="@{/user/update/{id}(id=${user.id})}">Modifier</a>&nbsp;|&nbsp;
-						<a th:href="@{/user/delete/{id}(id=${user.id})}">Supprimer</a>
+						<a th:href="@{/user/update?id=(id=${user.id})}">Modifier</a>&nbsp;|&nbsp;
+						<a th:href="@{/user/delete?id=(id=${user.id})}">Supprimer</a>
 					</td>
 				</tr>
 			</tbody>

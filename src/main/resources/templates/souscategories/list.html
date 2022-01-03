@@ -31,10 +31,10 @@
 					<tr class="text-center" th:each="souscategory : ${souscategories}">
 						<td th:text="${souscategory.description}"></td>
 						<td style="width: 15%" class="text-center"><a
-							th:href="@{/souscategories/update/{id}(id=${souscategory.id})}">Modifier</a>&nbsp;
+							th:href="@{/souscategories/update?id=(id=${souscategory.id})}">Modifier</a>&nbsp;
 						
 						<td style="width: 15%" class="text-center"><a
-							th:href="@{/souscategories/delete/{id}(id=${souscategory.id})}">Supprimer</a>&nbsp;						
+							th:href="@{/souscategories/delete?id=(id=${souscategory.id})}">Supprimer</a>&nbsp;						
 					</tr>
 				</tbody>
 			</table>

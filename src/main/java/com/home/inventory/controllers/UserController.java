@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.User;
 import com.home.inventory.repository.UserRepository;
@@ -58,8 +58,8 @@ public class UserController {
         return "user/add";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") final Long id,
+    @GetMapping("/update")
+    public String showUpdateForm(@RequestParam("id") final Long id,
             final Model model) {
 
         User user = userRepository.findById(id).orElse(null);
@@ -74,8 +74,8 @@ public class UserController {
         return "user/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") final Long id,
+    @PostMapping("/update")
+    public String updateUser(@RequestParam("id") final Long id,
             @Valid @ModelAttribute("user") final User user,
             final BindingResult result, final Model model) {
         if (result.hasErrors()) {
@@ -89,8 +89,8 @@ public class UserController {
         return "redirect:/user/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") final Long id,
+    @GetMapping("/delete")
+    public String deleteUser(@RequestParam("id") final Long id,
             final Model model) {
         try {
             userRepository.deleteById(id);

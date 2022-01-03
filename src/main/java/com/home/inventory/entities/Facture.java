@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.AccessLevel;
@@ -40,7 +41,7 @@ public class Facture implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "Description obligatoire.")
+    @NotNull(message = "Description obligatoire.")
     @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.")
     @Column(name = "description")
     private String description;

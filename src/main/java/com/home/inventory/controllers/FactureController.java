@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.Facture;
 import com.home.inventory.repository.FactureRepository;
@@ -55,12 +55,12 @@ public class FactureController {
         return "factures/add";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") final Long id,
+    @GetMapping("/update")
+    public String showUpdateForm(@RequestParam("id") final Long id,
             final Model model) {
         Facture facture = factureService.getFactureById(id);
 
-        if (facture == null) {
+        if (null == facture) {
             LOGGER.error("Invalid facture Id: {}", id);
             return "redirect:/factures/list";
         }
@@ -68,22 +68,22 @@ public class FactureController {
         return "factures/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateFacture(@PathVariable("id") final Long id,
-            @Valid @ModelAttribute("category") Facture facture,
+    @PostMapping("/update")
+    public String updateFacture(@RequestParam("id") final Long id,
+            @Valid @ModelAttribute("facture") Facture facture,
             final BindingResult result, final Model model) {
         if (result.hasErrors()) {
             LOGGER.info("POST request FAILED for: /factures/update/{id}");
-            return "factures/update";
+            return "/factures/update";
         }
-        // facture.setId(id);
+        facture.setId(id);
         factureService.updateFactureById(facture, id);
         model.addAttribute("facture", facture);
         return "redirect:/factures/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteFacture(@PathVariable("id") final Long id,
+    @GetMapping("/delete")
+    public String deleteFacture(@RequestParam("id") final Long id,
             final Model model) {
         factureService.deleteFactureById(id);
         model.addAttribute("factures", factureRepository.findAll());

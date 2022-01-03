@@ -31,10 +31,10 @@
 					<tr class="text-center" th:each="fournisseur : ${fournisseurs}">
 						<td th:text="${fournisseur.description}"></td>
 						<td style="width: 15%" class="text-center"><a
-							th:href="@{/fournisseurs/update/{id}(id=${fournisseur.id})}">Modifier</a>&nbsp;
+							th:href="@{/fournisseurs/update?id=(id=${fournisseur.id})}">Modifier</a>&nbsp;
 						
 						<td style="width: 15%" class="text-center"><a
-							th:href="@{/fournisseurs/delete/{id}(id=${fournisseur.id})}">Supprimer</a>&nbsp;						
+							th:href="@{/fournisseurs/delete?id=(id=${fournisseur.id})}">Supprimer</a>&nbsp;						
 					</tr>
 				</tbody>
 			</table>

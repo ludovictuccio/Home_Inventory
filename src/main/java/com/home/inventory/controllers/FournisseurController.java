@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.repository.FournisseurRepository;
@@ -57,8 +57,8 @@ public class FournisseurController {
         return "fournisseurs/add";
     }
 
-    @GetMapping("/update/{id}")
-    public String showUpdateForm(@PathVariable("id") final Long id,
+    @GetMapping("/update")
+    public String showUpdateForm(@RequestParam("id") final Long id,
             final Model model) {
         Fournisseur fournisseur = fournisseurService.getFournisseurById(id);
 
@@ -70,8 +70,8 @@ public class FournisseurController {
         return "fournisseurs/update";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateFournisseur(@PathVariable("id") final Long id,
+    @PostMapping("/update")
+    public String updateFournisseur(@RequestParam("id") final Long id,
             @Valid @ModelAttribute("fournisseur") Fournisseur fournisseur,
             final BindingResult result, final Model model) {
         if (result.hasErrors()) {
@@ -84,8 +84,8 @@ public class FournisseurController {
         return "redirect:/fournisseurs/list";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteFournisseur(@PathVariable("id") final Long id,
+    @GetMapping("/delete")
+    public String deleteFournisseur(@RequestParam("id") final Long id,
             final Model model) {
         fournisseurService.deleteFournisseurById(id);
         model.addAttribute("fournisseurs", fournisseurRepository.findAll());
