@@ -3,53 +3,103 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
-<title>Liste des factures</title>
+<title>Liste des produits</title>
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.0/css/bootstrap.css"
 	rel="stylesheet">
 </head>
 <body>
+		
 	<div class="container">
 		<div class="row">
-			<h2 style="width: 100%">Liste des factures</h2>
-		</div>
-		<div class="row">
-			<div class="col-6"></div>
-			<div class="col-6 text-right">
-				<a href="/">Menu</a>&nbsp;
+			<div class="col-10 text-center">
+				<h2>Liste des produits</h2>
 			</div>
 		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-2">
+				<a href="/" class="btn btn-primary btn-sm">Menu principal</a>&nbsp;
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-12 text-right">
+					<a href="/categories/list" class="btn btn-danger btn-sm"> Catégories</a>&nbsp;
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+		<div class="row">
+			<div class="col-12 text-right">
+				<a href="/souscategories/list" class="btn btn-danger btn-sm">Sous-catégories</a>&nbsp;
+			</div>
+		</div>
+		</div>
+		
+		<div class="container">
+		<div class="row">
+			<div class="col-12 text-right">
+				<a href="/fournisseurs/list" class="btn btn-danger btn-sm">Fournisseurs</a>&nbsp;
+			</div>
+		</div>
+		</div>
+		
+		<div class="container">
+		<div class="row">
+			<div class="col-12 text-right">
+				<a href="/factures/list" class="btn btn-danger btn-sm">Factures</a>&nbsp;
+			</div>
+		</div>
+		</div>
+
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-11 text-right">
+				<a href="/produits/add" class="btn btn-primary btn-sm">Ajouter un nouveau produit</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
 		<div>
 			<table class="table table-striped table-bordered" style="width: 100%"
 				id="mytable">
 				<thead>
 					<tr>
-						<th>No de la facture :</th>
+						<th>No facture</th>
+						<th>Description</th>
+						<th>Catégorie</th>
+						<th>Sous-catégorie</th>
+						<th>Fournisseur</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="text-center" th:each="facture : ${factures}">
-						<td th:text="${facture.description}"></td>
-						<td style="width: 15%" class="text-center"><a
-							th:href="@{/factures/update?id={id}(id=${facture.id})}">Modifier</a>&nbsp;
+					<tr class="text-center" th:each="produit : ${produits}">
+						<td style="width: 15%" class="text-center" th:text="${produit.factureProduit}"></td>
+						<td style="width: 42%" class="text-center" th:text="${produit.description}"></td>
+						<td style="width: 10%" class="text-center" th:text="${produit.categorieProduit}"></td>
+						<td style="width: 15%" class="text-center" th:text="${produit.sousCategorieProduit}"></td>
+						<td style="width: 10%" class="text-center" th:text="${produit.fournisseurProduit}"></td>
 						
-						<td style="width: 15%" class="text-center"><a
-							th:href="@{/factures/delete?id={id}(id=${facture.id})}">Supprimer</a>&nbsp;
-
-						
+						<td style="width: 4%" class="text-center"><a
+							th:href="@{/produits/update?id={id}(id=${produit.id})}">Modifier</a>&nbsp;
+						<td style="width: 4%" class="text-center"><a
+							th:href="@{/produits/delete?id={id}(id=${produit.id})}">Supprimer</a>&nbsp;	
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-10"></div>
-			<a href="/factures/add" class="btn btn-primary btn-sm">Ajouter
-				une facture</a>
-		</div>
-	</div>
-
 </body>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

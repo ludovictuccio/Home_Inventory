@@ -3,20 +3,20 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
-<title>Modifier une facture</title>
+<title>Modifier un produit</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container">
 
 		<div class="row">
-			<h2>Modifier une facture</h2>
+			<h2>Modifier un produit</h2>
 		</div>
 
 		<div class="row">
 			<form action="#"
-				th:action="@{/factures/update?id={id}(id=${facture.id})}"
-				th:object="${facture}" method="post" class="form-horizontal" style="width: 100%">
+				th:action="@{/produits/update?id={id}(id=${produit.id})}"
+				th:object="${produit}" method="post" class="form-horizontal" style="width: 100%">
 
 				<div class="form-group">
 					<label for="description" class="col-sm-2 control-label">Description</label>
@@ -28,8 +28,8 @@
 
 				<div class="form-group">
 					<div class="col-sm-12">
-						<a class="btn btn-danger btn-sm" href="/factures/list">Annuler</a>
-						<input class="btn btn-primary btn-sm" type="submit" value="Mettre à jour la facture"> 														
+						<a class="btn btn-danger btn-sm" href="/produits/list">Annuler</a>
+						<input class="btn btn-primary btn-sm" type="submit" value="Mettre à jour le produit"> 														
 					</div>
 				</div>
 
