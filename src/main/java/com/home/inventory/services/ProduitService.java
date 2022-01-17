@@ -23,7 +23,7 @@ public class ProduitService implements IProduitService {
      */
     public Produit addProduit(final Produit produit) {
 
-        if ((ConstraintsValidator.checkValidProduit(produit) == null)) {
+        if (ConstraintsValidator.checkValidProduit(produit) == null) {
             return null;
         }
         produitRepository.save(produit);

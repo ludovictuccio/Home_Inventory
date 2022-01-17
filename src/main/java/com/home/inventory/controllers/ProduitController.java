@@ -14,8 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.home.inventory.entities.Categories;
+import com.home.inventory.entities.Facture;
+import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.entities.Produit;
+import com.home.inventory.entities.SousCategories;
+import com.home.inventory.repository.CategoriesRepository;
+import com.home.inventory.repository.FactureRepository;
+import com.home.inventory.repository.FournisseurRepository;
 import com.home.inventory.repository.ProduitRepository;
+import com.home.inventory.repository.SousCategoriesRepository;
 import com.home.inventory.services.IProduitService;
 
 @Controller
@@ -30,6 +38,14 @@ public class ProduitController {
 
     @Autowired
     private ProduitRepository produitRepo;
+    @Autowired
+    private CategoriesRepository categoriesRepo;
+    @Autowired
+    private SousCategoriesRepository sousCategoriesRepo;
+    @Autowired
+    private FournisseurRepository fournisseurRepo;
+    @Autowired
+    private FactureRepository factureRepo;
 
     @GetMapping("/list")
     public String home(final Model model) {
@@ -39,8 +55,16 @@ public class ProduitController {
 
     @GetMapping("/add")
     public String addProduit(final Model model) {
+        model.addAttribute("categories", categoriesRepo.findAll());
+        model.addAttribute("category", new Categories());
+        model.addAttribute("sousCategories", sousCategoriesRepo.findAll());
+        model.addAttribute("sousCategory", new SousCategories());
+        model.addAttribute("fournisseurs", fournisseurRepo.findAll());
+        model.addAttribute("fournisseur", new Fournisseur());
+        model.addAttribute("factures", factureRepo.findAll());
+        model.addAttribute("facture", new Facture());
         model.addAttribute("produit", new Produit());
-        return "produits/add";
+        return "/produits/add";
     }
 
     @PostMapping("/validate")
@@ -53,6 +77,19 @@ public class ProduitController {
         }
         LOGGER.info("POST request FAILED for: /produits/validate");
         return "/produits/add";
+    }
+
+    @GetMapping("/get")
+    public String showGetForm(@RequestParam("id") final Long id,
+            final Model model) {
+        Produit produit = produitService.getProduitById(id);
+
+        if (produit == null) {
+            LOGGER.error("Invalid produit Id: {}", id);
+            return "redirect:/produits/list";
+        }
+        model.addAttribute("produit", produit);
+        return "/produits/get";
     }
 
     @GetMapping("/update")
