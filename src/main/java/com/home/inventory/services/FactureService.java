@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.home.inventory.entities.Facture;
 import com.home.inventory.repository.FactureRepository;
+import com.home.inventory.services.interfaces.IFactureService;
 import com.home.inventory.util.ConstraintsValidator;
 
 @Service

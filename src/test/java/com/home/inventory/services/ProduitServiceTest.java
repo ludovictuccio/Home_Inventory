@@ -23,6 +23,7 @@ import com.home.inventory.repository.FactureRepository;
 import com.home.inventory.repository.FournisseurRepository;
 import com.home.inventory.repository.ProduitRepository;
 import com.home.inventory.repository.SousCategoriesRepository;
+import com.home.inventory.services.interfaces.IProduitService;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")

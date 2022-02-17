@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.home.inventory.entities.User;
 import com.home.inventory.repository.UserRepository;
-import com.home.inventory.services.IUserService;
+import com.home.inventory.services.interfaces.IUserService;
 
 @SpringBootTest
 @AutoConfigureMockMvc

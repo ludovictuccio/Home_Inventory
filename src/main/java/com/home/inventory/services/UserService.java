@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.home.inventory.entities.User;
 import com.home.inventory.repository.UserRepository;
+import com.home.inventory.services.interfaces.IUserService;
 import com.home.inventory.util.ConstraintsValidator;
 
 @Service

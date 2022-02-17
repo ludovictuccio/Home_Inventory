@@ -24,7 +24,7 @@ import com.home.inventory.repository.FactureRepository;
 import com.home.inventory.repository.FournisseurRepository;
 import com.home.inventory.repository.ProduitRepository;
 import com.home.inventory.repository.SousCategoriesRepository;
-import com.home.inventory.services.IProduitService;
+import com.home.inventory.services.interfaces.IProduitService;
 
 @Controller
 @RequestMapping("/produits")
@@ -116,7 +116,7 @@ public class ProduitController {
         produit.setId(id);
         produitService.updateProduitById(produit, id);
         model.addAttribute("produit", produit);
-        return "redirect:/produits/list";
+        return "redirect:/produits/get?id=" + id;
     }
 
     @GetMapping("/delete")

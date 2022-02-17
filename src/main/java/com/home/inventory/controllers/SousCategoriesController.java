@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.SousCategories;
 import com.home.inventory.repository.SousCategoriesRepository;
-import com.home.inventory.services.ISousCategoriesService;
+import com.home.inventory.services.interfaces.ISousCategoriesService;
 
 @Controller
 @RequestMapping("/souscategories")

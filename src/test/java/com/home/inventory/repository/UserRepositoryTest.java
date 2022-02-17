@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
 import com.home.inventory.entities.User;
-import com.home.inventory.services.IUserService;
+import com.home.inventory.services.interfaces.IUserService;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")

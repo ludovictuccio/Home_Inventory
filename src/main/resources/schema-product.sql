@@ -27,10 +27,10 @@ CREATE TABLE facture (
 
 CREATE TABLE produit (
                 id BIGINT NOT NULL AUTO_INCREMENT,
-                categories_id BIGINT NOT NULL,
-                sous_categories_id BIGINT NOT NULL,
-                fournisseur_id BIGINT NOT NULL,
-                facture_id BIGINT NOT NULL,
+                categories_id BIGINT,
+                sous_categories_id BIGINT,
+                fournisseur_id BIGINT,
+                facture_id BIGINT,
                 description VARCHAR (250) NOT NULL,
                 date_achat DATE,
                 lieu_achat VARCHAR (250),
@@ -38,7 +38,6 @@ CREATE TABLE produit (
                 pourcent_remise DECIMAL(3,2),
                 prix_achat_unitaire_ttc DECIMAL(6,2),
                 commentaire VARCHAR (250),
-                document_photo VARCHAR (250),
                 PRIMARY KEY (id, categories_id, sous_categories_id, fournisseur_id, facture_id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 

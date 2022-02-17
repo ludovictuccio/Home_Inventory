@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.repository.FournisseurRepository;
-import com.home.inventory.services.IFournisseurService;
+import com.home.inventory.services.interfaces.IFournisseurService;
 
 @Controller
 @RequestMapping("/fournisseurs")

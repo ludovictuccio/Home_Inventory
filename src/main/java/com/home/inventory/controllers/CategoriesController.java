@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.Categories;
 import com.home.inventory.repository.CategoriesRepository;
-import com.home.inventory.services.ICategoriesService;
+import com.home.inventory.services.interfaces.ICategoriesService;
 
 @Controller
 @RequestMapping("/categories")

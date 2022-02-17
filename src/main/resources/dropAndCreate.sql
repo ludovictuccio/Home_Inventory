@@ -39,7 +39,6 @@ CREATE TABLE produit (
                 pourcent_remise DECIMAL(3,2),
                 prix_achat_unitaire_ttc DECIMAL(6,2),
                 commentaire VARCHAR (250),
-                document_photo VARCHAR (250),
                 PRIMARY KEY (id, categories_id, sous_categories_id, fournisseur_id, facture_id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
 
@@ -75,9 +74,4 @@ CREATE TABLE users (
 				role VARCHAR(250) NOT NULL,
 				PRIMARY KEY (id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO users (id, username, email, password, role) VALUES
-(1, "Ludo", "$2a$12$KFnNNQ0WqY.y1mPSXgbcJODFQsYUPhJhkYqVDH9Rv8eb8gDXo2Q5a", "$2a$12$rDcGQ4UBh2NCqPQCpuL56eVi7J6iUHwJnZfelDp0pFcdFGhcaR8s6", "ADMIN"),
-(2, "user", "user", "$2a$12$yCXbizMDRWwGgWejK4cK0O4hw8Rskq04ZGKmBkXXPVCL8p4yPMcqC", "USER"),
-(3, "admin", "admin", "$2a$12$rDcGQ4UBh2NCqPQCpuL56eVi7J6iUHwJnZfelDp0pFcdFGhcaR8s6", "ADMIN");
 

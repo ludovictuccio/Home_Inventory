@@ -1,4 +1,4 @@
-package com.home.inventory.services;
+package com.home.inventory.services.interfaces;
 
 import com.home.inventory.entities.Facture;
 

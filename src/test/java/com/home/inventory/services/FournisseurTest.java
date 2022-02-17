@@ -12,6 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import com.home.inventory.entities.Fournisseur;
 import com.home.inventory.repository.FournisseurRepository;
+import com.home.inventory.services.interfaces.IFournisseurService;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")

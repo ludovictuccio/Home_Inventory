@@ -20,6 +20,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import com.home.inventory.entities.User;
 import com.home.inventory.repository.UserRepository;
+import com.home.inventory.services.interfaces.IUserService;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)

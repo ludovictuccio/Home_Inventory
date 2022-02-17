@@ -12,6 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import com.home.inventory.entities.SousCategories;
 import com.home.inventory.repository.SousCategoriesRepository;
+import com.home.inventory.services.interfaces.ISousCategoriesService;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")

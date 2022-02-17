@@ -82,8 +82,8 @@ public class Produit implements Serializable {
     @Column(name = "commentaire")
     private String commentaire;
 
-    @Column(name = "document_photo")
-    private String documentEtPhoto;
+//    @Column(name = "document_photo")
+//    private MultipartFile documentEtPhoto;
 
     public Produit(Categories categorieProduit,
             SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
@@ -107,27 +107,36 @@ public class Produit implements Serializable {
         this.commentaire = commentaire;
     }
 
-    public Produit(Long id, Categories categorieProduit,
-            SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
-            Facture facture,
-            @NotBlank(message = "Description obligatoire") String description,
-            LocalDate dateAchat, String lieuAchat,
-            @PositiveOrZero double quantite,
-            @PositiveOrZero @DecimalMax("100.0") double pourcentageDeRemise,
-            @PositiveOrZero double prixAchatUnitaireTTC, String commentaire) {
-        super();
-        this.id = id;
-        this.categorieProduit = categorieProduit;
-        this.sousCategorieProduit = sousCategorieProduit;
-        this.fournisseurProduit = fournisseurProduit;
-        this.factureProduit = facture;
-        this.description = description;
-        this.dateAchat = dateAchat;
-        this.lieuAchat = lieuAchat;
-        this.quantite = quantite;
-        this.pourcentageDeRemise = pourcentageDeRemise;
-        this.prixAchatUnitaireTTC = prixAchatUnitaireTTC;
-        this.commentaire = commentaire;
-    }
+//    public Produit(Long idProduit, Categories categorieProduit,
+//            SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,
+//            Facture facture,
+//            @NotBlank(message = "Description obligatoire") String description,
+//            LocalDate dateAchat, String lieuAchat,
+//            @PositiveOrZero double quantite,
+//            @PositiveOrZero @DecimalMax("100.0") double pourcentageDeRemise,
+//            @PositiveOrZero double prixAchatUnitaireTTC, String commentaire) {
+//        super();
+//        this.id = idProduit;
+//        this.categorieProduit = categorieProduit;
+//        this.sousCategorieProduit = sousCategorieProduit;
+//        this.fournisseurProduit = fournisseurProduit;
+//        this.factureProduit = facture;
+//        this.description = description;
+//        this.dateAchat = dateAchat;
+//        this.lieuAchat = lieuAchat;
+//        this.quantite = quantite;
+//        this.pourcentageDeRemise = pourcentageDeRemise;
+//        this.prixAchatUnitaireTTC = prixAchatUnitaireTTC;
+//        this.commentaire = commentaire;
+//    }
 
+//    public String form;
+//
+//    public String getForm() {
+//        return form;
+//    }
+//
+//    public void setForm(String form) {
+//        this.form = form;
+//    }
 }

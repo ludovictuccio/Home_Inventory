@@ -12,6 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import com.home.inventory.entities.Facture;
 import com.home.inventory.repository.FactureRepository;
+import com.home.inventory.services.interfaces.IFactureService;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application.properties")

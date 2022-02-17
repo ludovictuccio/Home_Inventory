@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.home.inventory.entities.Facture;
 import com.home.inventory.repository.FactureRepository;
-import com.home.inventory.services.IFactureService;
+import com.home.inventory.services.interfaces.IFactureService;
 
 @Controller
 @RequestMapping("/factures")

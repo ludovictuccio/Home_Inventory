@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.home.inventory.entities.Produit;
 import com.home.inventory.repository.ProduitRepository;
+import com.home.inventory.services.interfaces.IProduitService;
 import com.home.inventory.util.ConstraintsValidator;
 
 @Service
