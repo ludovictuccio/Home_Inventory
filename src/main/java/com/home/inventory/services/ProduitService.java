@@ -27,6 +27,12 @@ public class ProduitService implements IProduitService {
         if (ConstraintsValidator.checkValidProduit(produit) == null) {
             return null;
         }
+        // Calcul de la remise
+        Double prixFinalAvecRemise = (produit.getPrixAchatUnitaireTTC()
+                * produit.getQuantite())
+                * ((100 - produit.getPourcentageDeRemise()) / 100);
+
+        produit.setPrixFinalAvecRemise(prixFinalAvecRemise);
         produitRepository.save(produit);
         LOGGER.info("Succes new produit creation");
         return produit;

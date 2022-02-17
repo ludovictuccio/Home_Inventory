@@ -66,7 +66,7 @@ public class ProduitServiceTest {
                 sousCategoriesRepository.findAll().get(0),
                 fournisseurRepository.findAll().get(0),
                 factureRepository.findAll().get(0), "Lampadaires",
-                LocalDate.of(2020, 10, 10), "Paris", 1.0, 0.0, 50.0, "Promo");
+                LocalDate.of(2020, 10, 10), "Paris", 1.0, 5, 100.0, "Promo");
     }
 
     @Test
@@ -92,8 +92,9 @@ public class ProduitServiceTest {
         assertThat(result.getDateAchat()).isEqualTo(LocalDate.of(2020, 10, 10));
         assertThat(result.getLieuAchat()).isEqualTo("Paris");
         assertThat(result.getQuantite()).isEqualTo(1.0);
-        assertThat(result.getPourcentageDeRemise()).isEqualTo(0.0);
-        assertThat(result.getPrixAchatUnitaireTTC()).isEqualTo(50.0);
+        assertThat(result.getPourcentageDeRemise()).isEqualTo(5);
+        assertThat(result.getPrixAchatUnitaireTTC()).isEqualTo(100.0);
+        assertThat(result.getPrixFinalAvecRemise()).isEqualTo(95.0);
         assertThat(result.getCommentaire()).isEqualTo("Promo");
     }
 

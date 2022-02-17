@@ -37,6 +37,7 @@ CREATE TABLE produit (
                 quantite SMALLINT,
                 pourcent_remise DECIMAL(3,2),
                 prix_achat_unitaire_ttc DECIMAL(6,2),
+				prix_achat_total_avec_remise_ttc DECIMAL(6,2),
                 commentaire VARCHAR (250),
                 PRIMARY KEY (id, categories_id, sous_categories_id, fournisseur_id, facture_id)
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4;

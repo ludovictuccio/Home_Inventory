@@ -79,6 +79,10 @@ public class Produit implements Serializable {
     @Column(name = "prix_achat_unitaire_ttc")
     private double prixAchatUnitaireTTC;
 
+    @PositiveOrZero
+    @Column(name = "prix_achat_total_avec_remise_ttc")
+    private double prixFinalAvecRemise;
+
     @Column(name = "commentaire")
     private String commentaire;
 
