@@ -9,6 +9,7 @@ import com.home.inventory.entities.Produit;
 import com.home.inventory.repository.ProduitRepository;
 import com.home.inventory.services.interfaces.IProduitService;
 import com.home.inventory.util.ConstraintsValidator;
+import com.home.inventory.util.PriceCalculator;
 
 @Service
 public class ProduitService implements IProduitService {
@@ -28,13 +29,14 @@ public class ProduitService implements IProduitService {
             return null;
         }
         // Calcul de la remise
-        Double prixFinalAvecRemise = (produit.getPrixAchatUnitaireTTC()
-                * produit.getQuantite())
-                * ((100 - produit.getPourcentageDeRemise()) / 100);
-
+        Double prixFinalAvecRemise = PriceCalculator
+                .calculateFinalPriceWithDiscount(
+                        produit.getPrixAchatUnitaireTTC(),
+                        produit.getQuantite(),
+                        produit.getPourcentageDeRemise());
         produit.setPrixFinalAvecRemise(prixFinalAvecRemise);
         produitRepository.save(produit);
-        LOGGER.info("Succes new produit creation");
+        LOGGER.debug("Succes new produit creation");
         return produit;
     }
 
@@ -71,6 +73,14 @@ public class ProduitService implements IProduitService {
         existingProduit
                 .setPrixAchatUnitaireTTC(produit.getPrixAchatUnitaireTTC());
         existingProduit.setCommentaire(produit.getCommentaire());
+
+        Double prixFinalAvecRemise = PriceCalculator
+                .calculateFinalPriceWithDiscount(
+                        produit.getPrixAchatUnitaireTTC(),
+                        produit.getQuantite(),
+                        produit.getPourcentageDeRemise());
+        existingProduit.setPrixFinalAvecRemise(prixFinalAvecRemise);
+
         produitRepository.save(existingProduit);
         isUpdated = true;
         return isUpdated;
