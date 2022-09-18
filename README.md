@@ -2,4 +2,4 @@
 
 ## Database 
 
-![Screenshot](bdd.JPG)
+![Screenshot](bdd.jpg)
