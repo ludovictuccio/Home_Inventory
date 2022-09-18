@@ -26,7 +26,7 @@ public class CategoriesRepositoryTest {
 
     @BeforeEach
     public void setUpPerTest() {
-        categoriesRepository.findAll().clear();
+        categoriesRepository.deleteAll();
     }
 
     @Test
@@ -53,13 +53,15 @@ public class CategoriesRepositoryTest {
         categoriesRepository.save(categorieTwo);
 
         // THEN
-        assertThat(categoriesRepository.findById(1L).get()).isNotNull();
+        Long idCategorieOne = categoriesRepository.findAll().get(0).getId();
+        Long idCategorieTwo = categoriesRepository.findAll().get(1).getId();
 
-        assertThat(categoriesRepository.findById(1L).get().getDescription())
+        assertThat(categoriesRepository.findById(idCategorieOne).get()).isNotNull();
+        assertThat(categoriesRepository.findById(idCategorieOne).get().getDescription())
                 .isEqualTo("Maison");
-        assertThat(categoriesRepository.findById(2L).get()).isNotNull();
 
-        assertThat(categoriesRepository.findById(2L).get().getDescription())
+        assertThat(categoriesRepository.findById(idCategorieTwo).get()).isNotNull();
+        assertThat(categoriesRepository.findById(idCategorieTwo).get().getDescription())
                 .isEqualTo("Jardin");
     }
 
@@ -73,8 +75,11 @@ public class CategoriesRepositoryTest {
         categoriesRepository.save(categorieTwo);
 
         // THEN
-        assertThat(categoriesRepository.findCategoriesById(1L)).isNotNull();
-        assertThat(categoriesRepository.findCategoriesById(2L)).isNotNull();
+        Long idCategorieOne = categoriesRepository.findAll().get(0).getId();
+        Long idCategorieTwo = categoriesRepository.findAll().get(1).getId();
+
+        assertThat(categoriesRepository.findCategoriesById(idCategorieOne)).isNotNull();
+        assertThat(categoriesRepository.findCategoriesById(idCategorieTwo)).isNotNull();
         assertThat(categoriesRepository.findCategoriesById(3L)).isNull();
     }
 

@@ -108,60 +108,67 @@ public class ProduitRepositoryTest {
         produitRepository.save(produitOne);
         produitRepository.save(produitTwo);
 
+        Long idProduitOne = produitRepository.findAll().get(0).getId();
+        Long idProduitTwo = produitRepository.findAll().get(1).getId();
+
         // THEN
-        assertThat(produitRepository.findById(1L).get()).isNotNull();
-        assertThat(produitRepository.findById(1L).get().getCategorieProduit()
-                .getDescription()).isEqualTo("Maison");
-        assertThat(produitRepository.findById(1L).get()
+        assertThat(produitRepository.findById(idProduitOne).get()).isNotNull();
+        assertThat(produitRepository.findById(idProduitOne).get()
+                .getCategorieProduit().getDescription()).isEqualTo("Maison");
+        assertThat(produitRepository.findById(idProduitOne).get()
                 .getSousCategorieProduit().getDescription())
                         .isEqualTo("Chambre");
-        assertThat(produitRepository.findById(1L).get().getFournisseurProduit()
-                .getDescription()).isEqualTo("Casto");
-        assertThat(produitRepository.findById(1L).get().getFactureProduit()
-                .getDescription()).isEqualTo("A0001");
-        assertThat(produitRepository.findById(1L).get().getDescription())
-                .isEqualTo("Papier peint rose");
-        assertThat(produitRepository.findById(1L).get().getDateAchat())
-                .isEqualTo(LocalDate.of(2020, 1, 8));
-        assertThat(produitRepository.findById(1L).get().getLieuAchat())
-                .isEqualTo("Paris");
-        assertThat(produitRepository.findById(1L).get().getQuantite())
+        assertThat(produitRepository.findById(idProduitOne).get()
+                .getFournisseurProduit().getDescription()).isEqualTo("Casto");
+        assertThat(produitRepository.findById(idProduitOne).get()
+                .getFactureProduit().getDescription()).isEqualTo("A0001");
+        assertThat(
+                produitRepository.findById(idProduitOne).get().getDescription())
+                        .isEqualTo("Papier peint rose");
+        assertThat(
+                produitRepository.findById(idProduitOne).get().getDateAchat())
+                        .isEqualTo(LocalDate.of(2020, 1, 8));
+        assertThat(
+                produitRepository.findById(idProduitOne).get().getLieuAchat())
+                        .isEqualTo("Paris");
+        assertThat(produitRepository.findById(idProduitOne).get().getQuantite())
                 .isEqualTo(2.0);
+        assertThat(produitRepository.findById(idProduitOne).get()
+                .getPourcentageDeRemise()).isEqualTo(0.0);
+        assertThat(produitRepository.findById(idProduitOne).get()
+                .getPrixAchatUnitaireTTC()).isEqualTo(25.0);
         assertThat(
-                produitRepository.findById(1L).get().getPourcentageDeRemise())
-                        .isEqualTo(0.0);
-        assertThat(
-                produitRepository.findById(1L).get().getPrixAchatUnitaireTTC())
-                        .isEqualTo(25.0);
-        assertThat(produitRepository.findById(1L).get().getCommentaire())
-                .isEqualTo("");
+                produitRepository.findById(idProduitOne).get().getCommentaire())
+                        .isEqualTo("");
 
-        assertThat(produitRepository.findById(2L).get()).isNotNull();
-        assertThat(produitRepository.findById(2L).get().getCategorieProduit()
-                .getDescription()).isEqualTo("Maison");
-        assertThat(produitRepository.findById(2L).get()
+        assertThat(produitRepository.findById(idProduitTwo).get()).isNotNull();
+        assertThat(produitRepository.findById(idProduitTwo).get()
+                .getCategorieProduit().getDescription()).isEqualTo("Maison");
+        assertThat(produitRepository.findById(idProduitTwo).get()
                 .getSousCategorieProduit().getDescription())
                         .isEqualTo("Cuisine");
-        assertThat(produitRepository.findById(2L).get().getFournisseurProduit()
-                .getDescription()).isEqualTo("Leroy");
-        assertThat(produitRepository.findById(2L).get().getFactureProduit()
-                .getDescription()).isEqualTo("A0002");
-        assertThat(produitRepository.findById(2L).get().getDescription())
-                .isEqualTo("Evier");
-        assertThat(produitRepository.findById(2L).get().getDateAchat())
-                .isEqualTo(LocalDate.of(2018, 6, 6));
-        assertThat(produitRepository.findById(2L).get().getLieuAchat())
-                .isEqualTo("Niort");
-        assertThat(produitRepository.findById(2L).get().getQuantite())
+        assertThat(produitRepository.findById(idProduitTwo).get()
+                .getFournisseurProduit().getDescription()).isEqualTo("Leroy");
+        assertThat(produitRepository.findById(idProduitTwo).get()
+                .getFactureProduit().getDescription()).isEqualTo("A0002");
+        assertThat(
+                produitRepository.findById(idProduitTwo).get().getDescription())
+                        .isEqualTo("Evier");
+        assertThat(
+                produitRepository.findById(idProduitTwo).get().getDateAchat())
+                        .isEqualTo(LocalDate.of(2018, 6, 6));
+        assertThat(
+                produitRepository.findById(idProduitTwo).get().getLieuAchat())
+                        .isEqualTo("Niort");
+        assertThat(produitRepository.findById(idProduitTwo).get().getQuantite())
                 .isEqualTo(1.0);
+        assertThat(produitRepository.findById(idProduitTwo).get()
+                .getPourcentageDeRemise()).isEqualTo(0.0);
+        assertThat(produitRepository.findById(idProduitTwo).get()
+                .getPrixAchatUnitaireTTC()).isEqualTo(20.0);
         assertThat(
-                produitRepository.findById(2L).get().getPourcentageDeRemise())
-                        .isEqualTo(0.0);
-        assertThat(
-                produitRepository.findById(2L).get().getPrixAchatUnitaireTTC())
-                        .isEqualTo(20.0);
-        assertThat(produitRepository.findById(2L).get().getCommentaire())
-                .isEqualTo("Acheté en 2 fois");
+                produitRepository.findById(idProduitTwo).get().getCommentaire())
+                        .isEqualTo("Acheté en 2 fois");
     }
 
     @Test

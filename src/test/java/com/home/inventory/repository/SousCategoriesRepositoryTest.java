@@ -64,33 +64,21 @@ public class SousCategoriesRepositoryTest {
         sousCategoriesRepository.save(sousCategorieOne);
         sousCategoriesRepository.save(sousCategorieTwo);
 
+        Long idSousCategorieOne = sousCategoriesRepository.findAll().get(0)
+                .getId();
+        Long idSousCategorieTwo = sousCategoriesRepository.findAll().get(1)
+                .getId();
         // THEN
-        assertThat(sousCategoriesRepository.findById(1L).get()).isNotNull();
-
-        assertThat(sousCategoriesRepository.findById(1L).get().getDescription())
-                .isEqualTo("Chambre");
-        assertThat(sousCategoriesRepository.findById(2L).get()).isNotNull();
-
-        assertThat(sousCategoriesRepository.findById(2L).get().getDescription())
-                .isEqualTo("Terasse");
-    }
-
-    @Test
-    @Tag("findSousCategoriesById")
-    @DisplayName("findSousCategoriesById - OK")
-    public void givenTwoSousCategoriesSavedInDb_whenFindSousCategoriesById_thenReturnCorrectValues() {
-        // GIVEN
-        // WHEN
-        sousCategoriesRepository.save(sousCategorieOne);
-        sousCategoriesRepository.save(sousCategorieTwo);
-
-        // THEN
-        assertThat(sousCategoriesRepository.findSousCategoriesById(1L))
+        assertThat(sousCategoriesRepository.findById(idSousCategorieOne).get())
                 .isNotNull();
-        assertThat(sousCategoriesRepository.findSousCategoriesById(2L))
+
+        assertThat(sousCategoriesRepository.findById(idSousCategorieOne).get()
+                .getDescription()).isEqualTo("Chambre");
+        assertThat(sousCategoriesRepository.findById(idSousCategorieTwo).get())
                 .isNotNull();
-        assertThat(sousCategoriesRepository.findSousCategoriesById(3L))
-                .isNull();
+
+        assertThat(sousCategoriesRepository.findById(idSousCategorieTwo).get()
+                .getDescription()).isEqualTo("Terasse");
     }
 
 }

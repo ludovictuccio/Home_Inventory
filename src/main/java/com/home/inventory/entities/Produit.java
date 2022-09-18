@@ -1,5 +1,6 @@
 package com.home.inventory.entities;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -86,8 +87,8 @@ public class Produit implements Serializable {
     @Column(name = "commentaire")
     private String commentaire;
 
-//    @Column(name = "document_photo")
-//    private MultipartFile documentEtPhoto;
+    @Column(name = "document_photo")
+    private File documentEtPhoto;
 
     public Produit(Categories categorieProduit,
             SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,

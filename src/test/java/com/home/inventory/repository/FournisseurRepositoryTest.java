@@ -27,6 +27,7 @@ public class FournisseurRepositoryTest {
     @BeforeEach
     public void setUpPerTest() {
         fournisseurRepository.findAll().clear();
+        fournisseurRepository.deleteAllInBatch();
     }
 
     @Test
@@ -52,30 +53,19 @@ public class FournisseurRepositoryTest {
         fournisseurRepository.save(fournisseurOne);
         fournisseurRepository.save(fournisseurTwo);
 
-        // THEN
-        assertThat(fournisseurRepository.findById(1L).get()).isNotNull();
-
-        assertThat(fournisseurRepository.findById(1L).get().getDescription())
-                .isEqualTo("Leroy");
-        assertThat(fournisseurRepository.findById(2L).get()).isNotNull();
-
-        assertThat(fournisseurRepository.findById(2L).get().getDescription())
-                .isEqualTo("Casto");
-    }
-
-    @Test
-    @Tag("findFournisseurById")
-    @DisplayName("findFournisseurById - OK")
-    public void givenTwoFournisseursSavedInDb_whenFindFournisseursById_thenReturnCorrectValues() {
-        // GIVEN
-        // WHEN
-        fournisseurRepository.save(fournisseurOne);
-        fournisseurRepository.save(fournisseurTwo);
+        Long idFournisseurOne = fournisseurRepository.findAll().get(0).getId();
+        Long idFournisseurTwo = fournisseurRepository.findAll().get(1).getId();
 
         // THEN
-        assertThat(fournisseurRepository.findFournisseurById(1L)).isNotNull();
-        assertThat(fournisseurRepository.findFournisseurById(2L)).isNotNull();
-        assertThat(fournisseurRepository.findFournisseurById(3L)).isNull();
+        assertThat(fournisseurRepository.findAll().size()).isEqualTo(2);
+        assertThat(fournisseurRepository.findById(idFournisseurOne).get())
+                .isNotNull();
+        assertThat(fournisseurRepository.findById(idFournisseurOne).get()
+                .getDescription()).isEqualTo("Leroy");
+        assertThat(fournisseurRepository.findById(idFournisseurTwo).get())
+                .isNotNull();
+        assertThat(fournisseurRepository.findById(idFournisseurTwo).get()
+                .getDescription()).isEqualTo("Casto");
     }
 
 }
