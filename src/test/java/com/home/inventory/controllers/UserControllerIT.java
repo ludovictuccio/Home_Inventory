@@ -42,9 +42,9 @@ public class UserControllerIT {
     private UserRepository userRepository;
 
     private static final String URI_USER_LIST = "/user/list";
-    private static final String URI_USER_DELETE = "/user/delete/";
-    private static final String URI_USER_UPDATE = "/user/update/9999";
-    private static final String URI_USER_UPDATE_FIRST = "/user/update/1";
+    private static final String URI_USER_DELETE = "/user/delete?id=";
+    private static final String URI_USER_UPDATE = "/user/update?id=9999";
+    private static final String URI_USER_UPDATE_FIRST = "/user/update?id=";
     private static final String URI_USER_VALIDATE = "/user/validate";
     private static final String URI_USER_ADD = "/user/add";
 
@@ -131,15 +131,17 @@ public class UserControllerIT {
     @DisplayName("Get - Update - OK")
     public void givenOneUser_whenUpdate_thenReturnUpdated() throws Exception {
 
-        User user = new User(1l, "username", "user@gmail.com", "Password1&",
+        User user = new User(null, "username", "user@gmail.com", "Password1&",
                 "USER");
         userService.saveUser(user);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get(URI_USER_UPDATE_FIRST))
+        Long id = userRepository.findAll().get(0).getId();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get(URI_USER_UPDATE_FIRST+id))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(
                         MockMvcResultMatchers.model().attributeExists("user"))
-                .andExpect(MockMvcResultMatchers.view().name("user/update"))
+                       .andExpect(MockMvcResultMatchers.view().name("user/update"))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
     }
 
@@ -148,13 +150,14 @@ public class UserControllerIT {
     @DisplayName("Post - Update - OK")
     public void givenOneUser_whenUpdate_thenReturnUpdate() throws Exception {
 
-        User user = new User(1l, "username", "user@gmail.com", "Password1&",
+        User user = new User(null, "username", "user@gmail.com", "Password1&",
                 "USER");
         userService.saveUser(user);
-        assertThat(userRepository.findAll().get(0).getId()).isEqualTo(1l);
+        assertThat(userRepository.findAll().size()).isEqualTo(1);
 
+        Long id = userRepository.findAll().get(0).getId();
         this.mockMvc
-                .perform(MockMvcRequestBuilders.post(URI_USER_UPDATE_FIRST)
+                .perform(MockMvcRequestBuilders.post(URI_USER_UPDATE_FIRST+id)
                         .contentType(MediaType.ALL)
                         .param("username", user.getUsername())
                         .param("email", "other@gmail.com")
