@@ -54,8 +54,7 @@ public class ProduitRepositoryTest {
 
     @BeforeEach
     public void setUpPerTest() {
-        produitRepository.deleteAllInBatch();
-        produitRepository.findAll().clear();
+        produitRepository.deleteAll();
 
         categoriesOne = new Categories(1L, "Maison");
         categoriesRepository.save(categoriesOne);
