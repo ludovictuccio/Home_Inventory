@@ -85,7 +85,7 @@
 				<tbody>
 					<tr class="text-center" th:each="produit : ${produits}">
 						<td style="width: 15%" class="text-center" th:text="${produit.factureProduit.description}"></td>
-						<td style="width: 43%" class="text-center" th:text="${produit.description}"></td>
+						<td style="width: 43%" class="text-center" th:text="${produit.descriptionProduit}"></td>
 						<td style="width: 10%" class="text-center" th:text="${produit.categorieProduit.description}"></td>
 						<td style="width: 15%" class="text-center" th:text="${produit.sousCategorieProduit.description}"></td>
 						<td style="width: 10%" class="text-center" th:text="${produit.fournisseurProduit.description}"></td>

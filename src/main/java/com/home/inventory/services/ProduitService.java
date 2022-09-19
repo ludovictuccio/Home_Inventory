@@ -64,7 +64,7 @@ public class ProduitService implements IProduitService {
                 .setSousCategorieProduit(produit.getSousCategorieProduit());
         existingProduit.setFournisseurProduit(produit.getFournisseurProduit());
         existingProduit.setFactureProduit(produit.getFactureProduit());
-        existingProduit.setDescription(produit.getDescription());
+        existingProduit.setDescriptionProduit(produit.getDescriptionProduit());
         existingProduit.setDateAchat(produit.getDateAchat());
         existingProduit.setLieuAchat(produit.getLieuAchat());
         existingProduit.setQuantite(produit.getQuantite());

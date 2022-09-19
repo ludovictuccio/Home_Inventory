@@ -60,7 +60,7 @@ public class Produit implements Serializable {
 
     @NotBlank(message = "Description obligatoire")
     @Column(name = "description")
-    private String description;
+    private String descriptionProduit;
 
     @Column(name = "date_achat")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -105,7 +105,7 @@ public class Produit implements Serializable {
         this.sousCategorieProduit = sousCategorieProduit;
         this.fournisseurProduit = fournisseurProduit;
         this.factureProduit = facture;
-        this.description = description;
+        this.descriptionProduit = description;
         this.dateAchat = dateAchat;
         this.lieuAchat = lieuAchat;
         this.quantite = quantite;
