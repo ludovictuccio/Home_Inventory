@@ -112,18 +112,35 @@ public class ProduitController {
             return "redirect:/produits/list";
         }
         model.addAttribute("produit", produit);
+        model.addAttribute("category", produit.getCategorieProduit());
+        model.addAttribute("sousCategory", produit.getSousCategorieProduit());
+        model.addAttribute("fournisseur", produit.getFournisseurProduit());
+        model.addAttribute("facture", produit.getFactureProduit());
+
+        model.addAttribute("categories", categoriesRepo.findAll());
+        model.addAttribute("sousCategories", sousCategoriesRepo.findAll());
+        model.addAttribute("fournisseurs", fournisseurRepo.findAll());
+        model.addAttribute("factures", factureRepo.findAll());
         return "/produits/update";
     }
 
     @PostMapping("/update")
     public String updateProduit(@RequestParam("id") final Long id,
             @Valid @ModelAttribute("produit") Produit produit,
+                                @Valid @ModelAttribute("category")  Categories category,
+                                @Valid @ModelAttribute("sousCategory")  SousCategories sousCategory,
+                                @Valid @ModelAttribute("fournisseur")  Fournisseur fournisseur,
+                                @Valid @ModelAttribute("facture")  Facture facture,
             final BindingResult result, final Model model) {
         if (result.hasErrors()) {
             LOGGER.info("POST request FAILED for: /produits/update/{id}");
             return "/produits/update";
         }
         produit.setId(id);
+        produit.setCategorieProduit(category);
+        produit.setSousCategorieProduit(sousCategory);
+        produit.setFournisseurProduit(fournisseur);
+        produit.setFactureProduit(facture);
         produitService.updateProduitById(produit, id);
         model.addAttribute("produit", produit);
         return "redirect:/produits/get?id=" + id;
