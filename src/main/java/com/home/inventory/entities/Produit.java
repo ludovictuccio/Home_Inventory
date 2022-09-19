@@ -87,8 +87,8 @@ public class Produit implements Serializable {
     @Column(name = "commentaire")
     private String commentaire;
 
-    @Column(name = "document_photo")
-    private File documentEtPhoto;
+//    @Column(name = "document_photo")
+//    private File documentEtPhoto;
 
     public Produit(Categories categorieProduit,
             SousCategories sousCategorieProduit, Fournisseur fournisseurProduit,

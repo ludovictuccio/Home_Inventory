@@ -5,13 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -23,8 +17,8 @@ import com.home.inventory.entities.Produit;
 import com.home.inventory.entities.SousCategories;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application.properties")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProduitRepositoryTest {
 
     @Autowired
@@ -52,8 +46,8 @@ public class ProduitRepositoryTest {
     private static Produit produitOne;
     private static Produit produitTwo;
 
-    @BeforeEach
-    public void setUpPerTest() {
+    @BeforeAll
+    public void setUp() {
         produitRepository.deleteAll();
 
         categoriesOne = new Categories(1L, "Maison");
@@ -80,16 +74,15 @@ public class ProduitRepositoryTest {
         produitTwo = new Produit(categoriesOne, sousCategoriesTwo,
                 fournisseurTwo, factureTwo, "Evier", LocalDate.of(2018, 6, 6),
                 "Niort", 1.0, 0.0, 20.0, "Acheté en 2 fois");
+        produitRepository.save(produitOne);
+        produitRepository.save(produitTwo);
     }
 
     @Test
-    @Order(5)
     @Tag("FindAll")
     @DisplayName("FindAll - Size OK")
     public void givenTwoProductsSavedInDb_whenFindAll_thenReturnCorrectSize() {
         // GIVEN
-        produitRepository.save(produitOne);
-        produitRepository.save(produitTwo);
         // WHEN
         List<Produit> produits = produitRepository.findAll();
 
@@ -98,14 +91,11 @@ public class ProduitRepositoryTest {
     }
 
     @Test
-    @Order(1)
     @Tag("Save")
     @DisplayName("Products saved - OK")
     public void givenTwoProductsSavedInDb_whenSave_thenReturnProductsSavede() {
         // GIVEN
         // WHEN
-        produitRepository.save(produitOne);
-        produitRepository.save(produitTwo);
 
         Long idProduitOne = produitRepository.findAll().get(0).getId();
         Long idProduitTwo = produitRepository.findAll().get(1).getId();
@@ -171,14 +161,11 @@ public class ProduitRepositoryTest {
     }
 
     @Test
-    @Order(2)
     @Tag("findProduitById")
     @DisplayName("findProduitById - OK")
     public void givenTwoProductsSavedInDb_whenFindProduitById_thenReturnCorrectValues() {
         // GIVEN
         // WHEN
-        produitRepository.save(produitOne);
-        produitRepository.save(produitTwo);
 
         // THEN
         assertThat(produitRepository.findAll().size()).isEqualTo(2);
@@ -187,13 +174,10 @@ public class ProduitRepositoryTest {
     }
 
     @Test
-    @Order(3)
     @Tag("findProduitByFactureProduit")
     @DisplayName("findProduitByFactureProduit - OK")
     public void givenTwoProductsSavedInDb_whenFindProduitByNoFacture_thenReturnCorrectValues() {
         // GIVEN
-        produitRepository.save(produitOne);
-        produitRepository.save(produitTwo);
         // WHEN
         Produit result = produitRepository
                 .findProduitByFactureProduit(factureOne);
@@ -213,13 +197,10 @@ public class ProduitRepositoryTest {
     }
 
     @Test
-    @Order(4)
     @Tag("findProduitByFactureProduit")
     @DisplayName("findProduitByFactureProduit - Error - Unknow")
     public void givenTwoProductsSavedInDb_whenFindProduitByUnknoNoFacture_thenReturnCorrectValues() {
         // GIVEN
-        produitRepository.save(produitOne);
-        produitRepository.save(produitTwo);
         // WHEN
         Produit result = produitRepository.findProduitByFactureProduit(null);
 
