@@ -75,7 +75,7 @@
 				id="mytable">
 				<thead>
 					<tr>
-						<th>No facture</th>
+						<th>N° de facture</th>
 						<th>Description</th>
 						<th>Catégorie</th>
 						<th>Sous-catégorie</th>
@@ -84,11 +84,11 @@
 				</thead>
 				<tbody>
 					<tr class="text-center" th:each="produit : ${produits}">
-						<td style="width: 15%" class="text-center" th:text="${produit.factureProduit}"></td>
+						<td style="width: 15%" class="text-center" th:text="${produit.factureProduit.description}"></td>
 						<td style="width: 43%" class="text-center" th:text="${produit.description}"></td>
-						<td style="width: 10%" class="text-center" th:text="${produit.categorieProduit}"></td>
-						<td style="width: 15%" class="text-center" th:text="${produit.sousCategorieProduit}"></td>
-						<td style="width: 10%" class="text-center" th:text="${produit.fournisseurProduit}"></td>
+						<td style="width: 10%" class="text-center" th:text="${produit.categorieProduit.description}"></td>
+						<td style="width: 15%" class="text-center" th:text="${produit.sousCategorieProduit.description}"></td>
+						<td style="width: 10%" class="text-center" th:text="${produit.fournisseurProduit.description}"></td>
 						
 						<td style="width: 4%" class="text-center"><a
 							th:href="@{/produits/delete?id={id}(id=${produit.id})}">Supprimer</a>&nbsp;	

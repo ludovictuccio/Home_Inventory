@@ -23,6 +23,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -62,6 +63,7 @@ public class Produit implements Serializable {
     private String description;
 
     @Column(name = "date_achat")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateAchat;
 
     @Column(name = "lieu_achat")

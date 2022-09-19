@@ -35,7 +35,7 @@ public class ProduitService implements IProduitService {
                         produit.getQuantite(),
                         produit.getPourcentageDeRemise());
         produit.setPrixFinalAvecRemise(prixFinalAvecRemise);
-        produitRepository.save(produit);
+        produitRepository.saveAndFlush(produit);
         LOGGER.debug("Succes new produit creation");
         return produit;
     }

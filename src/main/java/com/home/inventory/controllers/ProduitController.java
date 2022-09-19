@@ -26,6 +26,8 @@ import com.home.inventory.repository.ProduitRepository;
 import com.home.inventory.repository.SousCategoriesRepository;
 import com.home.inventory.services.interfaces.IProduitService;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/produits")
 public class ProduitController {
@@ -69,8 +71,16 @@ public class ProduitController {
 
     @PostMapping("/validate")
     public String validate(@Valid @ModelAttribute("produit") Produit produit,
+                           @Valid @ModelAttribute("category")  Categories category,
+                           @Valid @ModelAttribute("sousCategory")  SousCategories sousCategory,
+                           @Valid @ModelAttribute("fournisseur")  Fournisseur fournisseur,
+                           @Valid @ModelAttribute("facture")  Facture facture,
             final BindingResult result, final Model model) {
         if (!result.hasErrors()) {
+            produit.setCategorieProduit(category);
+            produit.setSousCategorieProduit(sousCategory);
+            produit.setFournisseurProduit(fournisseur);
+            produit.setFactureProduit(facture);
             Produit produitToAdd = produitService.addProduit(produit);
             model.addAttribute("produit", produitToAdd);
             return "redirect:/produits/list";
