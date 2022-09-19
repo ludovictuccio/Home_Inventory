@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>Liste des produits</title>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.0/css/bootstrap.css" rel="stylesheet">
+	</head>
+
+<body>
+		
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center padding-top:200px">
+				<h2>Liste des produits</h2>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-2">
+				<a href="/" class="btn btn-primary btn-sm">Menu principal</a>&nbsp;
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-right">
+					<a href="/categories/list" class="btn btn-danger btn-sm"> Catégories</a>&nbsp;
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-right">
+				<a href="/souscategories/list" class="btn btn-danger btn-sm">Sous-catégories</a>&nbsp;
+			</div>
+		</div>
+		</div>
+		
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-right">
+				<a href="/fournisseurs/list" class="btn btn-danger btn-sm">Fournisseurs</a>&nbsp;
+			</div>
+		</div>
+		</div>
+		
+		<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-right">
+				<a href="/factures/list" class="btn btn-danger btn-sm">Factures</a>&nbsp;
+			</div>
+		</div>
+		</div>
+
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-right">
+				<a href="/produits/add" class="btn btn-primary btn-sm">Ajouter un nouveau produit</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div>
+			<table class="col-lg-12 table table-striped table-bordered" style="width: 100%"
+				id="mytable">
+				<thead>
+					<tr>
+						<th>No facture</th>
+						<th>Description</th>
+						<th>Catégorie</th>
+						<th>Sous-catégorie</th>
+						<th>Fournisseur</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-center" th:each="produit : ${produits}">
+						<td style="width: 15%" class="text-center" th:text="${produit.factureProduit}"></td>
+						<td style="width: 43%" class="text-center" th:text="${produit.description}"></td>
+						<td style="width: 10%" class="text-center" th:text="${produit.categorieProduit}"></td>
+						<td style="width: 15%" class="text-center" th:text="${produit.sousCategorieProduit}"></td>
+						<td style="width: 10%" class="text-center" th:text="${produit.fournisseurProduit}"></td>
+						
+						<td style="width: 4%" class="text-center"><a
+							th:href="@{/produits/delete?id={id}(id=${produit.id})}">Supprimer</a>&nbsp;	
+						<td style="width: 4%" class="text-center"><a
+							th:href="@{/produits/get?id={id}(id=${produit.id})}">Sélectionner</a>&nbsp;	
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function myfunction() {
+		$('#mytable').dataTable();
+	});
+</script>
+</html>

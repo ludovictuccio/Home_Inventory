@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Ajouter un produit</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container col-lg-12 ">
+
+		<div class="row col-lg-12 text-center">
+			<h2>Ajouter un produit</h2>
+		</div>
+
+		<div class="row col-lg-7">
+
+			<form th:action="@{/produits/validate}" th:object="${produit}"
+				method="post" class="form-horizontal" style="width: 100%">
+
+				<div class="form-group blu-margin">		
+					<label for="categorieProduit" class="col-sm-10">Sélectionner une catégorie :</label>		        
+			        <div class="col-lg-6" th:object="${category}">
+   						 <select class="form-control" id="produitId" name="category">
+        					<option value=""> --- </option>
+        					<option th:each="category : ${categories}" th:field="*{produitId}" th:value="${category.id}"
+				                th:text="${category.description}"></option>		                
+				    	</select>
+					</div>																					
+<!-- 					<label for="categorieProduit" class="col-lg-12">ou créer une nouvelle catégorie :</label>	 -->
+<!-- 						<div class="col-lg-12"> -->
+<!-- 							<input type="text" th:field="*{categorieProduit}" id="categorieProduit" -->
+<!-- 									placeholder="Quelle catégorie souhaitez-vous créer ?" class="col-4"> -->
+<!-- 							<p class="text-danger" th:if="${#fields.hasErrors('categorieProduit')}" -->
+<!-- 									th:errors="*{categorieProduit}"></p> -->
+<!-- 						</div>	  -->					
+					</div>	
+
+						
+				<div class="form-group blu-margin">		
+					<label for="sousCategorieProduit" class="col-sm-10">Sélectionner une sous-catégorie :</label>		        
+			        <div class="col-lg-6" th:object="${sousCategory}">
+   						 <select class="form-control" id="produitId" name="sousCategory">
+        					<option value=""> --- </option>
+        					<option th:each="sousCategory : ${sousCategories}" th:field="*{produitId}" th:value="${sousCategory.id} "
+				                th:text="${sousCategory.description}"></option>
+				    	</select>
+					</div>		        				
+				</div>
+				<div class="form-group blu-margin">		
+					<label for="fournisseurProduit" class="col-sm-10">Sélectionner un fournisseur :</label>		        
+			        <div class="col-lg-6" th:object="${fournisseur}">
+   						 <select class="form-control" id="produitId" name="fournisseur">
+        					<option value=""> --- </option>
+        					<option th:each="fournisseur : ${fournisseurs}" th:field="*{produitId}" th:value="${fournisseur.id} "
+				                th:text="${fournisseur.description}"></option>
+				    	</select>
+					</div>		        				
+				</div>	
+				<div class="form-group blu-margin">		
+					<label for="factureProduit" class="col-sm-10">Sélectionner une facture :</label>		        
+			        <div class="col-lg-6" th:object="${facture}">
+   						 <select class="form-control" id="produitId" name="facture">
+        					<option value=""> --- </option>
+        					<option th:each="facture : ${factures}" th:field="*{produitId}" th:value="${facture.id} "
+				                th:text="${facture.description}"></option>
+				    	</select>
+					</div>		        				
+				</div>					
+				<div class="form-group">
+					<label for="description" class="col-sm-10 control-label">Description du produit :</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{description}" id="description"
+							placeholder="Description" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('description')}"
+							th:errors="*{description}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="dateAchat" class="col-sm-10 control-label">Date d'achat :</label>
+					<div class="col-sm-10">
+						<input type="date" th:field="*{dateAchat}" id="dateAchat"
+							placeholder="Date achat" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('dateAchat')}"
+							th:errors="*{dateAchat}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="lieuAchat" class="col-sm-10 control-label">Lieu d'achat :</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{lieuAchat}" id="lieuAchat"
+							placeholder="Lieu achat" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('lieuAchat')}"
+							th:errors="*{lieuAchat}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="quantite" class="col-sm-10 control-label">Quantité :</label>
+					<div class="col-sm-10">
+						<input type="number" min="0" th:field="*{quantite}" id="quantite"
+							placeholder="Quantité" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('quantite')}"
+							th:errors="*{quantite}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="pourcentageDeRemise" class="col-sm-10 control-label">Remise (en %) :</label>
+					<div class="col-sm-10">
+						<input type="number" step="5" min="0" max="100" th:field="*{pourcentageDeRemise}" id="pourcentageDeRemise"
+							placeholder="Exemple: mettre '5' pour 5% de remise" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('pourcentageDeRemise')}"
+							th:errors="*{pourcentageDeRemise}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="prixAchatUnitaireTTC" class="col-sm-10 control-label">Prix achat unitaire :</label>
+					<div class="col-sm-10">
+						<input type="number" step="0.01" min="0" th:field="*{prixAchatUnitaireTTC}" id="prixAchatUnitaireTTC"
+							placeholder="Prix achat unitaire" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('prixAchatUnitaireTTC')}"
+							th:errors="*{prixAchatUnitaireTTC}"></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="commentaire" class="col-sm-10 control-label">Commentaire :</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{commentaire}" id="commentaire"
+							placeholder="Commentaire" class="col-4">
+						<p class="text-danger" th:if="${#fields.hasErrors('commentaire')}"
+							th:errors="*{commentaire}"></p>
+					</div>
+				</div>
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="documentEtPhoto" class="col-sm-10 control-label">Joindre photo ou pdf :</label> -->
+<!-- 					<div class="col-sm-10"> -->
+<!-- 						<input type="file" th:field="*{documentEtPhoto}" id="documentEtPhoto" -->
+<!-- 							placeholder="Pièce jointe" class="col-4"> -->
+<!-- 						<p class="text-danger" th:if="${#fields.hasErrors('documentEtPhoto')}" -->
+<!-- 							th:errors="*{documentEtPhoto}"></p> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+				<div class="form-group">
+					<div class="col-sm-12">
+						<a class="btn btn-danger btn-sm" href="/produits/list">Annuler</a>
+						<input class="btn btn-primary btn-sm" type="submit"
+							value="Ajouter un produit">
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+</body>
+</html>

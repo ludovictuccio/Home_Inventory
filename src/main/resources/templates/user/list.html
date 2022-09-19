@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Accueil</title>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-6">
+
+		</div>
+		<div class="col-6 text-right">
+			<a href="/">Accueil</a>&nbsp;|&nbsp;<a href="/login">Login</a>
+		</div>
+	</div>
+	<div class="row"><h2>Liste d'utilisateurs</h2></div>
+	<div class="row">		
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Pseudo</th>
+					<th>Email</th>
+					<th>Role</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.username}"></td>
+					<td th:text="${user.email}"style="width: 40%"></td>
+					<td style="width: 15%" th:text="${user.role}"></td>
+					<td style="width: 20%" class="text-center">
+						<a th:href="@{/user/update?id=(id=${user.id})}">Modifier</a>&nbsp;|&nbsp;
+						<a th:href="@{/user/delete?id=(id=${user.id})}">Supprimer</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/user/add" class="btn btn-primary btn-sm">Ajouter un utilisateur</a>
+	</div>
+</div>
+</body>
+</html>

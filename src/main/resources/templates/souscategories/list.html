@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Liste de sous-catégories</title>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.0/css/bootstrap.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h2 style="width: 100%">Liste des sous-catégories</h2>
+		</div>
+		<div class="row">
+			<div class="col-6"></div>
+			<div class="col-6 text-right">
+				<a href="/produits/list">Accueil</a>&nbsp;
+			</div>
+		</div>
+		<div>
+			<table class="table table-striped table-bordered" style="width: 100%"
+				id="mytable">
+				<thead>
+					<tr>
+						<th>Nom de la sous-catégorie :</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="text-center" th:each="souscategory : ${souscategories}">
+						<td th:text="${souscategory.description}"></td>
+						<td style="width: 15%" class="text-center"><a
+							th:href="@{/souscategories/update?id=(id=${souscategory.id})}">Modifier</a>&nbsp;
+						
+						<td style="width: 15%" class="text-center"><a
+							th:href="@{/souscategories/delete?id=(id=${souscategory.id})}">Supprimer</a>&nbsp;						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-10"></div>
+			<a href="/souscategories/add" class="btn btn-primary btn-sm">Ajouter
+				une sous-catégorie</a>
+		</div>
+	</div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function myfunction() {
+		$('#mytable').dataTable();
+	});
+</script>
+</html>
