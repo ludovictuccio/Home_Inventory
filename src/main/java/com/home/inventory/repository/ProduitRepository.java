@@ -9,7 +9,7 @@ import com.home.inventory.entities.Produit;
 @Repository
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
 
-    Produit findProduitById(Long produitId);
+    Produit findProduitById(Long id);
 
     Produit findProduitByFactureProduit(Facture factureProduit);
 

@@ -45,7 +45,7 @@ public class Categories implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "categorieProduit", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "categorieProduit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Produit> produitId;
 
     public Categories(

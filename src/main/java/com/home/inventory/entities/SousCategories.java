@@ -45,7 +45,7 @@ public class SousCategories implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "sousCategorieProduit", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sousCategorieProduit", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Produit> produitId;
 
     public SousCategories(

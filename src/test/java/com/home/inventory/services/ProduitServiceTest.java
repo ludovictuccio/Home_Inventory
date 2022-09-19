@@ -129,6 +129,8 @@ public class ProduitServiceTest {
                 .getProduitById(produitRepository.findAll().get(0).getId());
 
         // THEN
+        assertThat(produitRepository.findAll().size()).isEqualTo(1);
+
         assertThat(result).isNotNull();
         assertThat(result.getId()).isNotNull();
         assertThat(result.getCategorieProduit().getDescription())
@@ -143,8 +145,8 @@ public class ProduitServiceTest {
         assertThat(result.getDateAchat()).isEqualTo(LocalDate.of(2020, 10, 10));
         assertThat(result.getLieuAchat()).isEqualTo("Paris");
         assertThat(result.getQuantite()).isEqualTo(1.0);
-        assertThat(result.getPourcentageDeRemise()).isEqualTo(0.0);
-        assertThat(result.getPrixAchatUnitaireTTC()).isEqualTo(50.0);
+        assertThat(result.getPourcentageDeRemise()).isEqualTo(5.0);
+        assertThat(result.getPrixAchatUnitaireTTC()).isEqualTo(100.0);
         assertThat(result.getCommentaire()).isEqualTo("Promo");
     }
 
@@ -211,8 +213,9 @@ public class ProduitServiceTest {
     @Test
     @Tag("DELETE")
     @DisplayName("Delete by ID - OK")
-    public void givenProduit_whenDeleteWithHisId_thenReturnTrue() {
+    public void givenProduit_whenDeleteWithHisId_thenReturnTrue() throws InterruptedException {
         // GIVEN
+        assertThat(produitRepository.findAll().size()).isEqualTo(0);
         produitService.addProduit(produit);
         assertThat(produitRepository.findAll().size()).isEqualTo(1);
 
@@ -220,7 +223,6 @@ public class ProduitServiceTest {
 
         // WHEN
         boolean isDeleted = produitService.deleteProduitById(categoryId);
-
         // THEN
         assertThat(isDeleted).isTrue();
         assertThat(produitRepository.findAll().size()).isEqualTo(0);

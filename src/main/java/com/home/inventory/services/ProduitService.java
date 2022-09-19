@@ -98,7 +98,7 @@ public class ProduitService implements IProduitService {
             LOGGER.error("Unknow produit for id: {}", produitId);
             return isDeleted;
         }
-        produitRepository.delete(existingProduit);
+        produitRepository.deleteById(produitId);
         isDeleted = true;
         return isDeleted;
     }
