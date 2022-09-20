@@ -1,6 +1,7 @@
 package com.home.inventory.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -46,7 +47,7 @@ public class Categories implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "categorieProduit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Produit> produitId;
+    private List<Produit> produitId = new ArrayList<>();
 
     public Categories(
             @NotBlank(message = "Description obligatoire.") @Size(min = 2, max = 250, message = "Le mot doit faire au minimum 2 caractères.") String descriptionCategorie) {

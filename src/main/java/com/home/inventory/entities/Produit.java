@@ -4,14 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
@@ -23,6 +16,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @EqualsAndHashCode
@@ -43,15 +38,15 @@ public class Produit implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "categories_id", insertable = true, updatable = true)
+    @JoinColumn(name = "categories_id")
     private Categories categorieProduit;
 
     @ManyToOne
-    @JoinColumn(name = "sous_categories_id", insertable = true, updatable = true)
+    @JoinColumn(name = "sous_categories_id")
     private SousCategories sousCategorieProduit;
 
     @ManyToOne
-    @JoinColumn(name = "fournisseur_id", insertable = true, updatable = true)
+    @JoinColumn(name = "fournisseur_id")
     private Fournisseur fournisseurProduit;
 
     @ManyToOne

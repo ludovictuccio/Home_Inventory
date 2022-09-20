@@ -8,7 +8,7 @@ public interface IProduitService {
 
     Produit getProduitById(Long id);
 
-    boolean updateProduitById(Produit produit, Long id);
+    boolean updateProduitById(final Produit produitToUpdate);
 
     boolean deleteProduitById(Long produitId);
 

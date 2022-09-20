@@ -136,12 +136,20 @@ public class ProduitController {
             LOGGER.info("POST request FAILED for: /produits/update/{id}");
             return "/produits/update";
         }
-        produit.setId(id);
-        produit.setCategorieProduit(category);
-        produit.setSousCategorieProduit(sousCategory);
-        produit.setFournisseurProduit(fournisseur);
-        produit.setFactureProduit(facture);
-        produitService.updateProduitById(produit, id);
+        Produit produitToUpdate = new Produit();
+        produitToUpdate.setId(id);
+
+        // mapper les 2 produits pour recuperer les autres attributs
+        produitToUpdate.setDescriptionProduit("test");
+
+        produitToUpdate.setCategorieProduit(category);
+        produitToUpdate.setSousCategorieProduit(sousCategory);
+        produitToUpdate.setFournisseurProduit(fournisseur);
+        produitToUpdate.setFactureProduit(facture);
+
+//        Produit produitUpdated = produitService.updateProduitById(produit, id);
+//        model.addAttribute("produit", produitUpdated);
+        produitService.updateProduitById(produitToUpdate);
         model.addAttribute("produit", produit);
         return "redirect:/produits/get?id=" + id;
     }
