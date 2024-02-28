@@ -9,6 +9,14 @@
 		<relativePath />
 	</parent>
 
+	<repositories>
+		<repository>
+			<id>spring-repo-milestone</id>
+			<name>Spring Repository - Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+
 	<groupId>com.home</groupId>
 	<artifactId>inventory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -20,7 +28,7 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
+
 		<!-- Sonar configuration -->
 		<sonar.projectKey>ludovictuccio_Home_Inventory</sonar.projectKey>
 		<sonar.organization>ludovictuccio</sonar.organization>
@@ -161,9 +169,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-    		<groupId>commons-fileupload</groupId>
-    		<artifactId>commons-fileupload</artifactId>
-   			 <version>1.4</version>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
 		</dependency>
 	</dependencies>
 
